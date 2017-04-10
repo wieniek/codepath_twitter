@@ -22,41 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
     print(url.description)
+    
     let requestToken = BDBOAuth1Credential(queryString: url.query)
     
-    let twitterClient = BDBOAuth1SessionManager(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "zBQcNlKexqOeeKM1bCg6z8iwI", consumerSecret: "SvgpeLyUWimMm5Ogo8ty9tGMpBCKVsTDryPsQgpjpsZkiJzKx7")
+    let client = TwitterClient.sharedInstance!
     
-    twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
+    client.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
       print("I got the access token!")
-      twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-        
-        // Print Twitter account details
-        // print("account: \(response!)")
-        let user = response as? NSDictionary
-        print("name: \(user?["name"] ?? "not found")")
-        
-      }, failure: { (task: URLSessionDataTask?, error: Error) in
-        print("error: \(error.localizedDescription )")
-      })
-      
-    }, failure: { (error: Error?) in
-      print("error: \(error?.localizedDescription ?? "unknown")")
-    })
-    
-    twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
-      print("I got the access token!")
-      twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-        
-        // Print tweets
-        let tweets = response as? [NSDictionary]
-        for tweet in tweets! {
-          print("tweet: \(tweet["text"] ?? "error")")
-        }
-        
-      }, failure: { (task: URLSessionDataTask?, error: Error) in
-        print("error: \(error.localizedDescription )")
-      })
-      
+      client.homeTimeline()
+      client.currentAccount()
     }, failure: { (error: Error?) in
       print("error: \(error?.localizedDescription ?? "unknown")")
     })
