@@ -15,10 +15,17 @@ class TwitterClient: BDBOAuth1SessionManager {
   
   func currentAccount() {
     get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+      
       // Print Twitter account details
       // print("account: \(response!)")
-      let user = response as? NSDictionary
-      print("name: \(user?["name"] ?? "not found")")
+      
+      let userDictionary = response as! NSDictionary
+      let user = User(dictionary: userDictionary)
+      
+      print("name: \(user.name ?? "")")
+      print("screen name: \(user.screnName ?? "")")
+      print("profile url: \(String(describing: user.profileUrl))")
+      print("description: \(user.tagline ?? "")")
       
     }, failure: { (task: URLSessionDataTask?, error: Error) in
       print("error: \(error.localizedDescription )")
@@ -27,10 +34,12 @@ class TwitterClient: BDBOAuth1SessionManager {
   
   func homeTimeline() {
     get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+
       // Print tweets
-      if let tweets = response as? [NSDictionary] {
+      if let dictionaries = response as? [NSDictionary] {
+        let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
         for tweet in tweets {
-          print("tweet: \(tweet["text"] ?? "no text")")
+          print("tweet: \(tweet.text ?? "")")
         }
       } else {
         print("no tweets")
