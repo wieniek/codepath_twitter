@@ -34,22 +34,15 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
-  func currentAccount() {
+  func currentAccount(success: @escaping (User) -> Void, failure: @escaping (Error) -> Void) {
     get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       
-      // Print Twitter account details
-      // print("account: \(response!)")
-      
-      let userDictionary = response as! NSDictionary
+      let userDictionary = response as! [String : Any]
       let user = User(dictionary: userDictionary)
-      
-      print("name: \(user.name ?? "")")
-      print("screen name: \(user.screenName ?? "")")
-      print("profile url: \(String(describing: user.profileUrl))")
-      print("description: \(user.tagline ?? "")")
+      success(user)
       
     }, failure: { (task: URLSessionDataTask?, error: Error) in
-      print("error: \(error.localizedDescription )")
+      failure(error)
     })
   }
   
@@ -58,28 +51,30 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
       
+      self.currentAccount(success: { (user: User) in
+        // Call the setter to save user data
+        User.currentUser = user
+        self.loginSuccess?()
+      }, failure: { (error: Error) in
+        self.loginFailure?(error)
+      })
+      
       self.loginSuccess?()
-
+      
     }, failure: { (error: Error?) in
       print("error: \(error!.localizedDescription)")
       self.loginFailure?(error!)
     })
   }
   
-  func homeTimeline() {
+  func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
     get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-
-      // Print tweets
       if let dictionaries = response as? [NSDictionary] {
         let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
-        for tweet in tweets {
-          print("tweet: \(tweet.text ?? "")")
-        }
-      } else {
-        print("no tweets")
+        success(tweets)
       }
     }, failure: { (task: URLSessionDataTask?, error: Error) in
-      print("error: \(error.localizedDescription )")
+      failure(error)
     })
   }
 }

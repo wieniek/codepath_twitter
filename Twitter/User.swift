@@ -8,15 +8,16 @@
 
 import UIKit
 
-class User: NSObject {
+class User {
   
+  var userDictionary: [String:Any]
   var name: String?
   var screenName: String?
   var profileUrl: URL?
   var tagline: String?
   
-  init(dictionary: NSDictionary) {
-    
+  init(dictionary: [String:Any]) {
+    userDictionary = dictionary
     name = dictionary["name"] as? String
     screenName = dictionary["screen_name"] as? String
     if let profileUrlString = dictionary["profile_image_url_https"] as? String {
@@ -31,10 +32,10 @@ class User: NSObject {
     get{
       if _currentUser == nil {
         let defaults = UserDefaults.standard
-        let userData = defaults.object(forKey: "currentUser") as? Data
+        let userData = defaults.object(forKey: "currentUserData") as? Data
         
         if let userData = userData {
-          let dictionary = try? JSONSerialization.jsonObject(with: userData, options: []) as! NSDictionary
+          let dictionary = try? JSONSerialization.jsonObject(with: userData, options: []) as! [String: Any]
           
           if let dictionary = dictionary {
             _currentUser = User(dictionary: dictionary)
@@ -45,12 +46,13 @@ class User: NSObject {
     }
     set(user) {
       let defaults = UserDefaults.standard
-      
       if let user = user {
-        let data = try? JSONSerialization.data(withJSONObject: user.dictionaryWithValues(forKeys: [ "name", "screenName", "profileUrl", "tagline"]), options: [])
+        let data = try? JSONSerialization.data(withJSONObject: user.userDictionary, options: [])
         defaults.set(data, forKey: "currentUserData")
+        print("User data saved to user defaults")
       } else {
         defaults.set(nil, forKey: "currentUserData")
+        print("User data NIL")
       }
       defaults.synchronize()
     }
