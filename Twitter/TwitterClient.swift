@@ -34,6 +34,12 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
+  func logout() {
+    User.currentUser = nil
+    deauthorize()
+    NotificationCenter.default.post(name: User.userDidLogoutNotification, object: nil)
+  }
+  
   func currentAccount(success: @escaping (User) -> Void, failure: @escaping (Error) -> Void) {
     get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       

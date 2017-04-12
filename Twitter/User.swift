@@ -16,6 +16,8 @@ class User {
   var profileUrl: URL?
   var tagline: String?
   
+  static let userDidLogoutNotification = NSNotification.Name(rawValue: "UserDidLogout")
+  
   init(dictionary: [String:Any]) {
     userDictionary = dictionary
     name = dictionary["name"] as? String
