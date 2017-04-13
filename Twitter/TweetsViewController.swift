@@ -8,14 +8,44 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
-  var tweets: [Tweet]!
+  var tweets: [Tweet]?
+  
+  @IBOutlet weak var tableView: UITableView!
+  
+  
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    let cell = tableView.dequeueReusableCell(withIdentifier: "TweetViewCell", for: indexPath) as! TweetViewCell
+    cell.tweet = tweets?[indexPath.row]
+    
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    if let tweets = tweets {
+      return tweets.count
+    } else {
+      return 0
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    tableView.delegate = self
+    tableView.dataSource = self
+    tableView.estimatedRowHeight = 150
+    tableView.rowHeight = UITableViewAutomaticDimension
+    
     TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+      
+      self.tweets = tweets
+      self.tableView.reloadData()
+      
       for tweet in tweets {
         print("tweet: \(tweet.text ?? "")")
       }
