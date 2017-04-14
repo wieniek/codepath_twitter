@@ -83,4 +83,17 @@ class TwitterClient: BDBOAuth1SessionManager {
       failure(error)
     })
   }
+  
+  func postNewTweet(withText text: String, success: (Tweet) -> Void, failure: (Error) -> Void) {
+    
+    if let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+    
+    post("/1.1/statuses/update.json?status=" + encodedText, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+      print("Response = \(response!)")
+    }, failure: { (task: URLSessionDataTask?, error: Error) in
+      print("Error = \(error)")
+    })
+    
+    }
+  }
 }

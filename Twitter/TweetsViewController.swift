@@ -48,26 +48,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     fetchHomeTimeline()
     
-//    TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-//      
-//      self.tweets = tweets
-//      self.tableView.reloadData()
-//      
-//      for tweet in tweets {
-//        print("tweet: \(tweet.text ?? "")")
-//      }
-//    }, failure: { (error: Error) in
-//      print("error: \(error.localizedDescription)")
-//    })
-    
   }
   
-  // Display HUD and then asynch data load with callbacks
+
   func fetchHomeTimeline() {
-    // Display HUD right before network request is made
-    // MBProgressHUD.showAdded(to: self.view, animated: true)
-    // Fetch data from network url
-    // Movie.fetch(fromEndPoint: endPoint, successCallback: loadFetch, errorCallback: showErrorView)
     
     TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
       self.tweets = tweets
@@ -88,15 +72,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     TwitterClient.sharedInstance?.logout()
   }
   
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
+   
+    if segue.identifier == "TweetDetailSegue" {
+      
+      let cell = sender as! TweetViewCell
+      
+      let navigationController = segue.destination as! UINavigationController
+      let detailViewController = navigationController.topViewController as! TweetDetailViewController
+      detailViewController.tweet = cell.tweet
+    }
+    
    }
-   */
   
 }

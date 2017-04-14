@@ -36,7 +36,7 @@ class TweetViewCell: UITableViewCell {
       screenNameLabel.text = "@\(tweet?.screenName ?? "")"
       tweetTextLabel.text = tweet?.text ?? ""
       if let timestamp = tweet?.timestamp {
-        timestampLabel.text = ago(fromDate: timestamp)
+        timestampLabel.text = format(timestamp: timestamp)
       }
       retweetsLabel.text = String(describing: tweet?.retweetCount ?? 0)
       favoritiesLabel.text = String(describing: tweet?.favoritesCount ?? 0)
@@ -57,23 +57,18 @@ class TweetViewCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
-  func ago(fromDate date: Date) -> String{
-    let ellapseTimeSeconds = Int(-date.timeIntervalSinceNow)
-    var output: String = ""
-    if ellapseTimeSeconds < 15{
-      output = "now"
-    }else if ellapseTimeSeconds < 60{
-      output = "\(ellapseTimeSeconds)s"
-    }else if ellapseTimeSeconds < 60 * 60{
-      output = "\(ellapseTimeSeconds / 60)m"
-    }else if ellapseTimeSeconds < 60  * 60 * 24{
-      output = "\(ellapseTimeSeconds / 3600)h"
-    }else if ellapseTimeSeconds < 60 * 60 * 24 * 7{
-      output = "\(ellapseTimeSeconds / (3600 * 24))d"
-    }else{
-      output = "\(ellapseTimeSeconds / (3600 * 24 * 7))w"
+  func format(timestamp time: Date) -> String{
+    
+    let ellapsedSec = Int(-time.timeIntervalSinceNow)
+    
+    switch ellapsedSec {
+    case let s where s < 60:            // minute
+      return "\(ellapsedSec)s"
+    case let s where s < 3600:          // hour
+      return "\(ellapsedSec / 60)m"
+    default:                            //day
+      return "\(ellapsedSec / 3600)d"
     }
-    return output;
   }
   
 }
