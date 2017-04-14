@@ -11,11 +11,52 @@ import AFNetworking
 
 class TweetDetailViewController: UIViewController {
   
-  var tweet: Tweet?
+  var tweet: Tweet!
   
   @IBOutlet weak var userNameLabel: UILabel!
   @IBOutlet weak var screenNameLabel: UILabel!
   @IBOutlet weak var userImage: UIImageView!
+  
+  @IBOutlet weak var rtButton: UIButton!
+  
+  @IBOutlet weak var replyButton: UIButton!
+  
+  @IBOutlet weak var favButton: UIButton!
+  @IBOutlet weak var favCount: UILabel!
+  
+  var isFavorite: Bool {
+    get {
+      return tweet.isFavorite
+    }
+    set {
+      var image: UIImage?
+     
+        if newValue {
+          image = UIImage(named: "favred")
+        } else {
+          image = UIImage(named: "favgrey")
+        }
+      favButton.setImage(image, for: .normal)
+      tweet.isFavorite = newValue
+    }
+  }
+  
+  
+  @IBAction func rtButton(_ sender: UIButton) {
+  }
+  
+  @IBAction func replyButton(_ sender: UIButton) {
+  }
+  
+  
+  @IBAction func favButton(_ sender: UIButton) {
+    
+    print("isFav1 = \(isFavorite)")
+    isFavorite = !isFavorite
+    print("isFav2 = \(isFavorite)")
+    
+  }
+  
   
   @IBAction func backButton(_ sender: UIBarButtonItem) {
     
@@ -30,6 +71,12 @@ class TweetDetailViewController: UIViewController {
     screenNameLabel.text = "@\(tweet?.screenName ?? "")"
     if let imageUrl = tweet?.imageUrl {
       userImage.setImageWith(imageUrl)
+    }
+    // Set favorite button icon
+    if let isFav = tweet?.isFavorite {
+      if isFav {
+        favButton.imageView?.image = UIImage(named: "favred")
+      }
     }
   }
   

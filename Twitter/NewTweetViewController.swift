@@ -9,14 +9,23 @@
 import UIKit
 import AFNetworking
 
-class NewTweetViewController: UIViewController {
+class NewTweetViewController: UIViewController, UITextViewDelegate {
   
   var user: User?
+  
+  var charRemaining: Int? {
+    didSet {
+      charRemainingLabel.text = String(charRemaining ?? 0)
+    }
+  }
   
   @IBOutlet weak var userNameLabel: UILabel!
   @IBOutlet weak var screenNameLabel: UILabel!
   @IBOutlet weak var userImage: UIImageView!
   @IBOutlet weak var tweetTextView: UITextView!
+  
+  @IBOutlet weak var charRemainingLabel: UILabel!
+  
   
   @IBAction func cancelButton(_ sender: UIBarButtonItem) {
     dismiss(animated: true, completion: nil)
@@ -24,8 +33,10 @@ class NewTweetViewController: UIViewController {
   
   @IBAction func tweetButton(_ sender: UIBarButtonItem) {
     
-    TwitterClient.sharedInstance?.postNewTweet(withText: "This is a test tweet 876876", success: callBackSuccess, failure: callBackFailure)
-    
+    if let text = tweetTextView.text {
+      TwitterClient.sharedInstance?.postNewTweet(withText: text, success: callBackSuccess, failure: callBackFailure)
+    }
+    dismiss(animated: true, completion: nil)
   }
   
   func callBackSuccess(withResult result: Tweet) {
@@ -39,6 +50,7 @@ class NewTweetViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    tweetTextView.delegate = self
     user = User.currentUser
     userNameLabel.text = user?.name ?? ""
     screenNameLabel.text = user?.screenName ?? ""
@@ -49,6 +61,25 @@ class NewTweetViewController: UIViewController {
     
     // Do any additional setup after loading the view.
   }
+  
+  func textViewDidChange(_ textView: UITextView) {
+    //self.updateCounterColorState()
+    //self.updateTweetBtnState()
+    //self.updateLimitCounter()
+    //self.updatePlaceHodlerUI()
+    
+    charRemaining = 150 - tweetTextView.text.characters.count
+  }
+  
+  
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    if textView.text.characters.count == 150 && !text.isEmpty{
+      return false
+    }
+    return true
+  }
+  
+  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
