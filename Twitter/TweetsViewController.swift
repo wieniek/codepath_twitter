@@ -14,7 +14,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   
   @IBOutlet weak var tableView: UITableView!
   
-  
+  // Refresh control for table view
+  let refreshControl = UIRefreshControl()
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
@@ -41,18 +42,40 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.estimatedRowHeight = 150
     tableView.rowHeight = UITableViewAutomaticDimension
     
+    // Add refresh control to table view
+    refreshControl.addTarget(self, action: #selector(fetchHomeTimeline), for: UIControlEvents.valueChanged)
+    tableView.insertSubview(refreshControl, at: 0)
+    
+    fetchHomeTimeline()
+    
+//    TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+//      
+//      self.tweets = tweets
+//      self.tableView.reloadData()
+//      
+//      for tweet in tweets {
+//        print("tweet: \(tweet.text ?? "")")
+//      }
+//    }, failure: { (error: Error) in
+//      print("error: \(error.localizedDescription)")
+//    })
+    
+  }
+  
+  // Display HUD and then asynch data load with callbacks
+  func fetchHomeTimeline() {
+    // Display HUD right before network request is made
+    // MBProgressHUD.showAdded(to: self.view, animated: true)
+    // Fetch data from network url
+    // Movie.fetch(fromEndPoint: endPoint, successCallback: loadFetch, errorCallback: showErrorView)
+    
     TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-      
       self.tweets = tweets
       self.tableView.reloadData()
-      
-      for tweet in tweets {
-        print("tweet: \(tweet.text ?? "")")
-      }
+      self.refreshControl.endRefreshing()
     }, failure: { (error: Error) in
       print("error: \(error.localizedDescription)")
     })
-    
   }
   
   override func didReceiveMemoryWarning() {
