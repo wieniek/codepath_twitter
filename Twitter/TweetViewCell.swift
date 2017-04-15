@@ -11,16 +11,6 @@ import AFNetworking
 
 class TweetViewCell: UITableViewCell {
   
-  
-  //  user profile picture
-  //  username
-  //  tweet text
-  //  timestamp
-  //  retweet count
-  //  fav count
-  
-  
-  
   // Cell label outlets
   @IBOutlet weak var userNameLabel: UILabel!
   @IBOutlet weak var screenNameLabel: UILabel!

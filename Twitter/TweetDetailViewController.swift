@@ -31,7 +31,6 @@ class TweetDetailViewController: UIViewController {
     }
     set {
       var image: UIImage?
-     
         if newValue {
           image = UIImage(named: "favred")
         } else {
@@ -41,29 +40,33 @@ class TweetDetailViewController: UIViewController {
       tweet.isFavorite = newValue
     }
   }
-  
+  var isRetweeted: Bool {
+    get {
+      return tweet.isRetweeted
+    }
+    set {
+      var image: UIImage?
+      if newValue {
+        image = UIImage(named: "rtgreen")
+      } else {
+        image = UIImage(named: "rtgrey")
+      }
+      rtButton.setImage(image, for: .normal)
+      tweet.isRetweeted = newValue
+    }
+  }
   
   @IBAction func rtButton(_ sender: UIButton) {
+    isRetweeted = !isRetweeted
   }
   
   @IBAction func replyButton(_ sender: UIButton) {
   }
   
-  
   @IBAction func favButton(_ sender: UIButton) {
     
-    print("isFav1 = \(isFavorite)")
     isFavorite = !isFavorite
-    print("isFav2 = \(isFavorite)")
-    
   }
-  
-  
-  @IBAction func backButton(_ sender: UIBarButtonItem) {
-    
-    dismiss(animated: true, completion: nil)
-  }
-  
   
   override func viewDidLoad() {
     super.viewDidLoad()

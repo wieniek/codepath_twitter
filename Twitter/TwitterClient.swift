@@ -73,6 +73,44 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
+  func setRetweetFlag(forTweet tweet: Tweet, as isRetweeted: Bool, success: (Tweet) -> Void, failure: (Error) -> Void) {
+    
+    guard let id = tweet.id else {
+      return
+    }
+    var endPoint: String
+    if isRetweeted {
+      endPoint = "https://api.twitter.com/1.1/statuses/retweet/\(id).json"
+    } else {
+      endPoint = "https://api.twitter.com/1.1/statuses/unretweet/\(id).json"
+    }
+    
+    post(endPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+      print("Response = \(response!)")
+    }, failure: { (task: URLSessionDataTask?, error: Error) in
+      print("Error = \(error)")
+    })
+  }
+  
+  func setFavoriteFlag(forTweet tweet: Tweet, as isFavorite: Bool, success: (Tweet) -> Void, failure: (Error) -> Void) {
+    
+    guard let id = tweet.id else {
+      return
+    }
+    var endPoint: String
+    if isFavorite {
+      endPoint = "/1.1/favorites/create.json?id=" + id
+    } else {
+      endPoint = "/1.1/favorites/destroy.json?id=" + id
+    }
+    
+    post(endPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+      print("Response = \(response!)")
+    }, failure: { (task: URLSessionDataTask?, error: Error) in
+      print("Error = \(error)")
+    })
+  }
+  
   func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
     get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       if let dictionaries = response as? [NSDictionary] {
@@ -87,13 +125,13 @@ class TwitterClient: BDBOAuth1SessionManager {
   func postNewTweet(withText text: String, success: (Tweet) -> Void, failure: (Error) -> Void) {
     
     if let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
-    
-    post("/1.1/statuses/update.json?status=" + encodedText, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-      print("Response = \(response!)")
-    }, failure: { (task: URLSessionDataTask?, error: Error) in
-      print("Error = \(error)")
-    })
-    
+      
+      post("/1.1/statuses/update.json?status=" + encodedText, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+        print("Response = \(response!)")
+      }, failure: { (task: URLSessionDataTask?, error: Error) in
+        print("Error = \(error)")
+      })
+      
     }
   }
 }

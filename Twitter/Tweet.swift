@@ -10,6 +10,7 @@ import UIKit
 
 class Tweet: NSObject {
   
+  var id: String?
   var name: String?
   var screenName: String?
   var imageUrl: URL?
@@ -17,11 +18,28 @@ class Tweet: NSObject {
   var timestamp: Date?
   var retweetCount = 0
   var favoritesCount = 0
-  var isFavorite = false
+  var isFavorite = false {
+    didSet {
+      TwitterClient.sharedInstance?.setFavoriteFlag(forTweet: self, as: isFavorite, success: callbackSuccess(tweet:), failure: callbackFailure(error:))
+    }
+  }
+  var isRetweeted = false {
+    didSet {
+      TwitterClient.sharedInstance?.setRetweetFlag(forTweet: self, as: isRetweeted, success: callbackSuccess(tweet:), failure: callbackFailure(error:))
+    }
+  }
+  
+  func callbackSuccess(tweet: Tweet) {
+    print("set as sucessful")
+  }
+  
+  func callbackFailure(error: Error) {
+    print("set as error")
+  }
   
   init(dictionary: NSDictionary) {
     
-    //name = dictionary["name"] as? NSDictionary
+    id = dictionary["id_str"] as? String
     let user = dictionary["user"] as? NSDictionary
     name = user?["name"] as? String
     screenName = user?["screen_name"] as? String

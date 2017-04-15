@@ -363,7 +363,6 @@
                                                 </constraints>
                                                 <state key="normal" title="Button" image="replygrey"/>
                                                 <connections>
-                                                    <action selector="favButton:" destination="Pfw-0x-lM2" eventType="touchUpInside" id="RwR-W1-XC4"/>
                                                     <action selector="replyButton:" destination="Pfw-0x-lM2" eventType="touchUpInside" id="nuD-Xr-Odf"/>
                                                 </connections>
                                             </button>
@@ -375,7 +374,6 @@
                                                 </constraints>
                                                 <state key="normal" title="Button" image="rtgrey"/>
                                                 <connections>
-                                                    <action selector="favButton:" destination="Pfw-0x-lM2" eventType="touchUpInside" id="uSJ-vC-lRV"/>
                                                     <action selector="rtButton:" destination="Pfw-0x-lM2" eventType="touchUpInside" id="Xdr-uh-eVX"/>
                                                 </connections>
                                             </button>
@@ -462,6 +460,6 @@
         <image name="rtgrey" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SYd-C1-Yaf"/>
+        <segue reference="2ZB-YA-sUz"/>
     </inferredMetricsTieBreakers>
 </document>
