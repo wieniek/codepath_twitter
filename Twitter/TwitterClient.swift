@@ -73,7 +73,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
-  func setRetweetFlag(forTweet tweet: Tweet, as isRetweeted: Bool, success: (Tweet) -> Void, failure: (Error) -> Void) {
+  func setRetweetFlag(forTweet tweet: Tweet, as isRetweeted: Bool, success: @escaping (Tweet) -> Void, failure: @escaping (Error) -> Void) {
     
     guard let id = tweet.id else {
       return
@@ -87,12 +87,14 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     post(endPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       print("Response = \(response!)")
+      success(tweet)
     }, failure: { (task: URLSessionDataTask?, error: Error) in
       print("Error = \(error)")
+      failure(error)
     })
   }
   
-  func setFavoriteFlag(forTweet tweet: Tweet, as isFavorite: Bool, success: (Tweet) -> Void, failure: (Error) -> Void) {
+  func setFavoriteFlag(forTweet tweet: Tweet, as isFavorite: Bool, success: @escaping (Tweet) -> Void, failure: @escaping (Error) -> Void) {
     
     guard let id = tweet.id else {
       return
@@ -106,8 +108,10 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     post(endPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       print("Response = \(response!)")
+      success(tweet)
     }, failure: { (task: URLSessionDataTask?, error: Error) in
       print("Error = \(error)")
+      failure(error)
     })
   }
   

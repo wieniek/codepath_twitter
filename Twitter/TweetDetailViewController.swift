@@ -87,6 +87,12 @@ class TweetDetailViewController: UIViewController {
         favButton.imageView?.image = UIImage(named: "favred")
       }
     }
+    // Set retweet button icon
+    if let isRT = tweet?.isRetweeted {
+      if isRT {
+        favButton.imageView?.image = UIImage(named: "rtgreen")
+      }
+    }
   }
   
   override func didReceiveMemoryWarning() {
