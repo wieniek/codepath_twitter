@@ -223,8 +223,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FH3-Iv-7yN">
-                                <rect key="frame" x="340.5" y="126" width="26.5" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="150" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FH3-Iv-7yN">
+                                <rect key="frame" x="343" y="126" width="24" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -415,7 +415,7 @@
                     <navigationItem key="navigationItem" title="Tweet" id="Smw-J2-FG7">
                         <barButtonItem key="rightBarButtonItem" title="Reply" id="OKY-uF-CTg">
                             <connections>
-                                <segue destination="4wY-B3-du9" kind="show" id="2ZB-YA-sUz"/>
+                                <segue destination="4wY-B3-du9" kind="show" identifier="ReplySegue" id="2ZB-YA-sUz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

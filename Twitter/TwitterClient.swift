@@ -122,16 +122,23 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
-  func postNewTweet(withText text: String, success: (Tweet) -> Void, failure: (Error) -> Void) {
+  func updateStatus(withText text: String, inResponseToId responseId: String?, success: (Tweet) -> Void, failure: (Error) -> Void) {
     
-    if let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
-      
-      post("/1.1/statuses/update.json?status=" + encodedText, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-        print("Response = \(response!)")
-      }, failure: { (task: URLSessionDataTask?, error: Error) in
-        print("Error = \(error)")
-      })
-      
+    guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
+      return
     }
+    
+    let endPoint = "/1.1/statuses/update.json?status=" + encodedText
+    
+    var params: [String: AnyObject]?
+    if let responseId = responseId {
+      params = ["in_reply_to_status_id_str": responseId as AnyObject]
+    }
+
+    post(endPoint, parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+      print("Response = \(response!)")
+    }, failure: { (task: URLSessionDataTask?, error: Error) in
+      print("Error = \(error)")
+    })
   }
 }

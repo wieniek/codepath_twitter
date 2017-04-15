@@ -31,11 +31,11 @@ class TweetDetailViewController: UIViewController {
     }
     set {
       var image: UIImage?
-        if newValue {
-          image = UIImage(named: "favred")
-        } else {
-          image = UIImage(named: "favgrey")
-        }
+      if newValue {
+        image = UIImage(named: "favred")
+      } else {
+        image = UIImage(named: "favgrey")
+      }
       favButton.setImage(image, for: .normal)
       tweet.isFavorite = newValue
     }
@@ -94,15 +94,12 @@ class TweetDetailViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
-  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    if segue.identifier == "ReplySegue" {
+      
+      let viewController = segue.destination as! NewTweetViewController
+      viewController.responseId = tweet.id
+    }
+  }
 }

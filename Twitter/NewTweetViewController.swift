@@ -12,6 +12,7 @@ import AFNetworking
 class NewTweetViewController: UIViewController, UITextViewDelegate {
   
   var user: User?
+  var responseId: String?
   
   var charRemaining: Int? {
     didSet {
@@ -34,7 +35,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
   @IBAction func tweetButton(_ sender: UIBarButtonItem) {
     
     if let text = tweetTextView.text {
-      TwitterClient.sharedInstance?.postNewTweet(withText: text, success: callBackSuccess, failure: callBackFailure)
+      TwitterClient.sharedInstance?.updateStatus(withText: text, inResponseToId: responseId, success: callBackSuccess, failure: callBackFailure)
     }
     self.navigationController?.popViewController(animated: true)
   }
