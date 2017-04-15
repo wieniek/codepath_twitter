@@ -27,6 +27,14 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
   
   @IBOutlet weak var charRemainingLabel: UILabel!
   
+  @IBOutlet weak var tweetButton: UIBarButtonItem! {
+    didSet {
+      // If response ID is set, then tweet is a reply
+      if let _ = responseId {
+        tweetButton.title = "Reply"
+      }
+    }
+  }
   
   @IBAction func cancelButton(_ sender: UIBarButtonItem) {
     self.navigationController?.popViewController(animated: true)
@@ -58,6 +66,12 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     if let url = user?.profileUrl {
       userImage.setImageWith(url)
     }
+    
+    // If response ID is set, then tweet is a reply
+    if let _ = responseId {
+      tweetButton.title = "Reply"
+    }
+    
     tweetTextView.becomeFirstResponder()
   }
   

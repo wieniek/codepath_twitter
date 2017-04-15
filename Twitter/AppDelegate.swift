@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
+    let twitterBlue = UIColor(red: 64/255, green: 153/255, blue: 255/255, alpha: 1.0)
+    UINavigationBar.appearance().tintColor = UIColor.white
+    UINavigationBar.appearance().barTintColor = twitterBlue
+    
     if User.currentUser != nil {
       print("There is a current user")
       let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -38,6 +38,7 @@ class TweetDetailViewController: UIViewController {
       }
       favButton.setImage(image, for: .normal)
       tweet.isFavorite = newValue
+      favCount.text = String(tweet?.favoritesCount ?? 0)
     }
   }
   var isRetweeted: Bool {
@@ -53,6 +54,7 @@ class TweetDetailViewController: UIViewController {
       }
       rtButton.setImage(image, for: .normal)
       tweet.isRetweeted = newValue
+      rtCount.text = String(tweet?.retweetCount ?? 0)
     }
   }
   
@@ -90,7 +92,7 @@ class TweetDetailViewController: UIViewController {
     // Set retweet button icon
     if let isRT = tweet?.isRetweeted {
       if isRT {
-        favButton.imageView?.image = UIImage(named: "rtgreen")
+        rtButton.imageView?.image = UIImage(named: "rtgreen")
       }
     }
   }

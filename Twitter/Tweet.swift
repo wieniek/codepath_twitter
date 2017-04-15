@@ -21,11 +21,21 @@ class Tweet: NSObject {
   var isFavorite = false {
     didSet {
       TwitterClient.sharedInstance?.setFavoriteFlag(forTweet: self, as: isFavorite, success: callbackSuccess(tweet:), failure: callbackFailure(error:))
+      if isFavorite {
+        favoritesCount += 1
+      } else {
+        favoritesCount -= 1
+      }
     }
   }
   var isRetweeted = false {
     didSet {
       TwitterClient.sharedInstance?.setRetweetFlag(forTweet: self, as: isRetweeted, success: callbackSuccess(tweet:), failure: callbackFailure(error:))
+      if isRetweeted {
+        retweetCount += 1
+      } else {
+        retweetCount -= 1
+      }
     }
   }
   

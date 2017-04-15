@@ -50,6 +50,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    tableView.reloadData()
+  }
   
   func fetchHomeTimeline() {
     
@@ -81,3 +84,4 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
   }
 }
+

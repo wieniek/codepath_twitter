@@ -52,12 +52,14 @@ class TweetViewCell: UITableViewCell {
     let ellapsedSec = Int(-time.timeIntervalSinceNow)
     
     switch ellapsedSec {
-    case let s where s < 60:            // minute
+    case let s where s < 60:            // less than a minute
       return "\(ellapsedSec)s"
-    case let s where s < 3600:          // hour
+    case let s where s < 3600:          // an hour
       return "\(ellapsedSec / 60)m"
-    default:                            //day
-      return "\(ellapsedSec / 3600)d"
+    case let s where s < 86400:          // a day
+      return "\(ellapsedSec / 3600)h"
+    default:
+      return "\(ellapsedSec / 86400)d"
     }
   }
   

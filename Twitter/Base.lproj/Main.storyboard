@@ -186,7 +186,7 @@
             </objects>
             <point key="canvasLocation" x="2036" y="137.18140929535232"/>
         </scene>
-        <!--New Tweet View Controller-->
+        <!--Compose-->
         <scene sceneID="KrL-2c-Rbg">
             <objects>
                 <viewController id="4wY-B3-du9" customClass="NewTweetViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
@@ -248,7 +248,7 @@
                             <constraint firstAttribute="trailing" secondItem="U95-SG-wlZ" secondAttribute="trailing" constant="8" id="oI0-l2-8Op"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="l31-S4-Nbz">
+                    <navigationItem key="navigationItem" title="Compose" id="l31-S4-Nbz">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="2WM-qA-det">
                             <connections>
                                 <action selector="cancelButton:" destination="4wY-B3-du9" id="ogZ-Mg-7A5"/>
@@ -263,6 +263,7 @@
                     <connections>
                         <outlet property="charRemainingLabel" destination="FH3-Iv-7yN" id="E0K-qU-dpV"/>
                         <outlet property="screenNameLabel" destination="eE5-wy-7FE" id="Nm9-2p-KuK"/>
+                        <outlet property="tweetButton" destination="dS9-er-OnE" id="Dni-qx-2R1"/>
                         <outlet property="tweetTextView" destination="U95-SG-wlZ" id="pE2-pc-5DV"/>
                         <outlet property="userImage" destination="we4-8D-joO" id="J6d-8g-D4n"/>
                         <outlet property="userNameLabel" destination="Rty-Vc-WfO" id="l2h-qJ-KAJ"/>
@@ -440,9 +441,13 @@
             <objects>
                 <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="K3A-nA-CqV" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tp4-ea-uNB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Tp4-ea-uNB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -460,6 +465,6 @@
         <image name="rtgrey" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2ZB-YA-sUz"/>
+        <segue reference="SYd-C1-Yaf"/>
     </inferredMetricsTieBreakers>
 </document>
