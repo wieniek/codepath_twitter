@@ -50,7 +50,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
   }
   
-
+  
   func fetchHomeTimeline() {
     
     TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
@@ -72,17 +72,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     TwitterClient.sharedInstance?.logout()
   }
   
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
     if segue.identifier == "TweetDetailSegue" {
-      
       let cell = sender as! TweetViewCell
-      
-      let navigationController = segue.destination as! UINavigationController
-      let detailViewController = navigationController.topViewController as! TweetDetailViewController
+      let detailViewController = segue.destination as! TweetDetailViewController
       detailViewController.tweet = cell.tweet
     }
-    
-   }
-  
+  }
 }

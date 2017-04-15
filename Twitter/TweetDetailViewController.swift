@@ -16,13 +16,14 @@ class TweetDetailViewController: UIViewController {
   @IBOutlet weak var userNameLabel: UILabel!
   @IBOutlet weak var screenNameLabel: UILabel!
   @IBOutlet weak var userImage: UIImageView!
+  @IBOutlet weak var tweetTextLabel: UILabel!
+  
+  @IBOutlet weak var rtCount: UILabel!
+  @IBOutlet weak var favCount: UILabel!
   
   @IBOutlet weak var rtButton: UIButton!
-  
   @IBOutlet weak var replyButton: UIButton!
-  
   @IBOutlet weak var favButton: UIButton!
-  @IBOutlet weak var favCount: UILabel!
   
   var isFavorite: Bool {
     get {
@@ -72,6 +73,11 @@ class TweetDetailViewController: UIViewController {
     if let imageUrl = tweet?.imageUrl {
       userImage.setImageWith(imageUrl)
     }
+    tweetTextLabel.text = tweet?.text ?? ""
+    
+    rtCount.text = String(tweet?.retweetCount ?? 0)
+    favCount.text = String(tweet?.favoritesCount ?? 0)
+    
     // Set favorite button icon
     if let isFav = tweet?.isFavorite {
       if isFav {

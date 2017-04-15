@@ -28,7 +28,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
   
   
   @IBAction func cancelButton(_ sender: UIBarButtonItem) {
-    dismiss(animated: true, completion: nil)
+    self.navigationController?.popViewController(animated: true)
   }
   
   @IBAction func tweetButton(_ sender: UIBarButtonItem) {
@@ -36,7 +36,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     if let text = tweetTextView.text {
       TwitterClient.sharedInstance?.postNewTweet(withText: text, success: callBackSuccess, failure: callBackFailure)
     }
-    dismiss(animated: true, completion: nil)
+    self.navigationController?.popViewController(animated: true)
   }
   
   func callBackSuccess(withResult result: Tweet) {
@@ -57,9 +57,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     if let url = user?.profileUrl {
       userImage.setImageWith(url)
     }
-    
-    
-    // Do any additional setup after loading the view.
+    tweetTextView.becomeFirstResponder()
   }
   
   func textViewDidChange(_ textView: UITextView) {
