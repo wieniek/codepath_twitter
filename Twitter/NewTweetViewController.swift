@@ -44,14 +44,22 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
   @IBAction func tweetButton(_ sender: UIBarButtonItem) {
     
     if let text = tweetTextView.text {
-      TwitterClient.sharedInstance?.updateStatus(withText: text, inResponseToId: responseId, success: callBackSuccess(withResult:), failure: callBackFailure(withError:))
+      
+      let tweetText: String
+      
+      if let retweetingTo = retweetingTo {
+        tweetText = "@\(retweetingTo) " + text
+      } else {
+        tweetText = text
+      }
+      
+      TwitterClient.sharedInstance?.updateStatus(withText: tweetText, inResponseToId: responseId, success: callBackSuccess(withResult:), failure: callBackFailure(withError:))
     }
-    //self.navigationController?.popViewController(animated: true)
   }
   
   func callBackSuccess(withResult result: Tweet) {
     print("Success: \(result)")
-
+    
     let alertController = UIAlertController(title: "Tweet", message: "New tweet successfuly created!", preferredStyle: .alert)
     let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
       // handle response here.
