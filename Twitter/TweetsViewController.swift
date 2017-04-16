@@ -53,12 +53,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.insertSubview(refreshControl, at: 0)
     
     fetchHomeTimeline()
-    tableView.reloadData()
-    
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    tableView.reloadData()
+    //tableView.reloadData()
   }
   
   func fetchHomeTimeline() {

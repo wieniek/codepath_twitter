@@ -49,20 +49,20 @@ class Tweet: NSObject {
   
   init(dictionary: NSDictionary) {
     
-    id = dictionary["id_str"] as? String
-    let user = dictionary["user"] as? NSDictionary
-    name = user?["name"] as? String
-    screenName = user?["screen_name"] as? String
+    id = dictionary[Const.id] as? String
+    let user = dictionary[Const.user] as? NSDictionary
+    name = user?[Const.name] as? String
+    screenName = user?[Const.screenName] as? String
     
-    if let imageUrlString = user?["profile_image_url_https"] as? String {
+    if let imageUrlString = user?[Const.imageUrl] as? String {
       imageUrl = URL(string: imageUrlString)
     }
     
-    text = dictionary["text"] as? String
-    retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-    favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
+    text = dictionary[Const.text] as? String
+    retweetCount = (dictionary[Const.rtCount] as? Int) ?? 0
+    favoritesCount = (dictionary[Const.favCount] as? Int) ?? 0
     
-    let timestampString = dictionary["created_at"] as? String
+    let timestampString = dictionary[Const.createdAt] as? String
     if let timestampString = timestampString {
       let formatter = DateFormatter()
       formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"

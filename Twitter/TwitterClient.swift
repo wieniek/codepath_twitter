@@ -19,7 +19,7 @@ class TwitterClient: BDBOAuth1SessionManager {
   
   weak var delegate: TwitterClientDelegate?
   
-  static let sharedInstance = TwitterClient(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "zBQcNlKexqOeeKM1bCg6z8iwI", consumerSecret: "SvgpeLyUWimMm5Ogo8ty9tGMpBCKVsTDryPsQgpjpsZkiJzKx7")
+  static let sharedInstance = TwitterClient(baseURL: URL(string: Const.baseUrl), consumerKey: Const.consumerKey, consumerSecret: Const.consumerSecret)
   
   var loginSuccess: (() -> Void)?
   var loginFailure: ((Error) -> Void)?
@@ -30,11 +30,11 @@ class TwitterClient: BDBOAuth1SessionManager {
     loginFailure = failure
     
     TwitterClient.sharedInstance?.deauthorize()
-    TwitterClient.sharedInstance?.fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string: "wieniekTwitter://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential?) -> Void in
+    TwitterClient.sharedInstance?.fetchRequestToken(withPath: Const.requestToken, method: "GET", callbackURL: URL(string: Const.oauthCallback), scope: nil, success: { (requestToken: BDBOAuth1Credential?) -> Void in
       print("I got a token")
       
       if let token = requestToken?.token {
-        let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(token)")!
+        let url = URL(string: Const.oauthUrl + "\(token)")!
         UIApplication.shared.open(url, options: [:], completionHandler: {(success) in print("Open url success.")})
       } }, failure: { (error: Error!) -> Void in
         print("error: \(error.localizedDescription)")
@@ -49,7 +49,7 @@ class TwitterClient: BDBOAuth1SessionManager {
   }
   
   func currentAccount(success: @escaping (User) -> Void, failure: @escaping (Error) -> Void) {
-    get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+    get(Const.accountEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       
       let userDictionary = response as! [String : Any]
       let user = User(dictionary: userDictionary)
@@ -63,7 +63,7 @@ class TwitterClient: BDBOAuth1SessionManager {
   func handleOpenUrl(url: URL) {
     let requestToken = BDBOAuth1Credential(queryString: url.query)
     
-    fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
+    fetchAccessToken(withPath: Const.accessToken, method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
       
       self.currentAccount(success: { (user: User) in
         // Call the setter to save user data
@@ -88,9 +88,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     var endPoint: String
     if isRetweeted {
-      endPoint = "https://api.twitter.com/1.1/statuses/retweet/\(id).json"
+      endPoint = Const.retweetEndPoint + "\(id).json"
     } else {
-      endPoint = "https://api.twitter.com/1.1/statuses/unretweet/\(id).json"
+      endPoint = Const.unretweetEndPoint + "\(id).json"
     }
     
     post(endPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -109,9 +109,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     var endPoint: String
     if isFavorite {
-      endPoint = "/1.1/favorites/create.json?id=" + id
+      endPoint = Const.favCreateEndPoint + id
     } else {
-      endPoint = "/1.1/favorites/destroy.json?id=" + id
+      endPoint = Const.favDestroyEndPoint + id
     }
     
     post(endPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -124,7 +124,7 @@ class TwitterClient: BDBOAuth1SessionManager {
   }
   
   func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
-    get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+    get(Const.timelineEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       if let dictionaries = response as? [NSDictionary] {
         let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
         success(tweets)
@@ -140,7 +140,7 @@ class TwitterClient: BDBOAuth1SessionManager {
       return
     }
     
-    let endPoint = "/1.1/statuses/update.json?status=" + encodedText
+    let endPoint = Const.updateEndPoint + encodedText
     
     var params: [String: AnyObject]?
     if let responseId = responseId {

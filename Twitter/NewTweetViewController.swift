@@ -88,10 +88,6 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
   }
   
   func textViewDidChange(_ textView: UITextView) {
-    //self.updateCounterColorState()
-    //self.updateTweetBtnState()
-    //self.updateLimitCounter()
-    //self.updatePlaceHodlerUI()
     
     charRemaining = 150 - tweetTextView.text.characters.count
   }
@@ -103,8 +99,6 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     }
     return true
   }
-  
-  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()

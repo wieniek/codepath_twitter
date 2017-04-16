@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   
-  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
     let twitterBlue = UIColor(red: 64/255, green: 153/255, blue: 255/255, alpha: 1.0)
