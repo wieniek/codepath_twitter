@@ -9,7 +9,15 @@
 import UIKit
 import BDBOAuth1Manager
 
+protocol TwitterClientDelegate: class {
+  
+  func twitterClient(didCreateNewTweet newTweet: Tweet)
+  
+}
+
 class TwitterClient: BDBOAuth1SessionManager {
+  
+  weak var delegate: TwitterClientDelegate?
   
   static let sharedInstance = TwitterClient(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "zBQcNlKexqOeeKM1bCg6z8iwI", consumerSecret: "SvgpeLyUWimMm5Ogo8ty9tGMpBCKVsTDryPsQgpjpsZkiJzKx7")
   
@@ -126,7 +134,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
-  func updateStatus(withText text: String, inResponseToId responseId: String?, success: (Tweet) -> Void, failure: (Error) -> Void) {
+  func updateStatus(withText text: String, inResponseToId responseId: String?, success: @escaping (Tweet) -> Void, failure: @escaping (Error) -> Void) {
     
     guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
       return
@@ -138,11 +146,20 @@ class TwitterClient: BDBOAuth1SessionManager {
     if let responseId = responseId {
       params = ["in_reply_to_status_id_str": responseId as AnyObject]
     }
-
+    
     post(endPoint, parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       print("Response = \(response!)")
+      
+      if let response = response as? NSDictionary {
+        let newTweet = Tweet(dictionary: response)
+        self.delegate?.twitterClient(didCreateNewTweet: newTweet)
+        success(newTweet)
+      }
+      
     }, failure: { (task: URLSessionDataTask?, error: Error) in
       print("Error = \(error)")
+      failure(error)
+      
     })
   }
 }

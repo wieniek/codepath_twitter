@@ -15,7 +15,7 @@ class LoginViewController: UIViewController {
     
     TwitterClient.sharedInstance?.login(success: {
       print("I've logged in")
-      self.performSegue(withIdentifier: "loginSegue", sender: nil)
+      self.performSegue(withIdentifier: "LoginSegue", sender: nil)
       
     }, failure: { (error: Error) in
       print("Error: \(error.localizedDescription)")

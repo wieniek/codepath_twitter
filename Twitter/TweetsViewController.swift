@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TwitterClientDelegate {
   
   var tweets: [Tweet]?
   
@@ -34,11 +34,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
   }
   
+  func twitterClient(didCreateNewTweet newTweet: Tweet) {
+    tweets?.insert(newTweet, at: 0)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     tableView.delegate = self
     tableView.dataSource = self
+    TwitterClient.sharedInstance?.delegate = self
+    
     tableView.estimatedRowHeight = 150
     tableView.rowHeight = UITableViewAutomaticDimension
     
@@ -47,6 +53,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.insertSubview(refreshControl, at: 0)
     
     fetchHomeTimeline()
+    tableView.reloadData()
     
   }
   
@@ -60,6 +67,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
       self.tweets = tweets
       self.tableView.reloadData()
       self.refreshControl.endRefreshing()
+      print("got the data")
     }, failure: { (error: Error) in
       print("error: \(error.localizedDescription)")
     })
