@@ -108,6 +108,7 @@ class TweetDetailViewController: UIViewController {
       
       let viewController = segue.destination as! NewTweetViewController
       viewController.responseId = tweet.id
+      viewController.retweetingTo = tweet.screenName
     }
   }
 }

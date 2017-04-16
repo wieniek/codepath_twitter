@@ -220,7 +220,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="U95-SG-wlZ">
-                                <rect key="frame" x="8" y="151" width="359" height="508"/>
+                                <rect key="frame" x="8" y="166.5" width="359" height="492.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -231,23 +231,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retweeting to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8z-e6-6vZ">
+                                <rect key="frame" x="8" y="144" width="359" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FH3-Iv-7yN" secondAttribute="trailing" constant="8" id="60j-CZ-acA"/>
                             <constraint firstAttribute="trailing" secondItem="Rty-Vc-WfO" secondAttribute="trailing" constant="8" id="74d-7L-Awc"/>
+                            <constraint firstItem="c8z-e6-6vZ" firstAttribute="leading" secondItem="Nx2-mV-LaY" secondAttribute="leading" constant="8" id="8Wy-Mc-pCa"/>
+                            <constraint firstItem="U95-SG-wlZ" firstAttribute="leading" secondItem="Nx2-mV-LaY" secondAttribute="leading" constant="8" id="8Ya-kb-OfL"/>
                             <constraint firstItem="Rty-Vc-WfO" firstAttribute="top" secondItem="2zg-8n-mCt" secondAttribute="bottom" constant="8" id="HDo-mb-F6F"/>
+                            <constraint firstAttribute="trailing" secondItem="c8z-e6-6vZ" secondAttribute="trailing" constant="8" id="HGQ-sR-iMk"/>
                             <constraint firstItem="FH3-Iv-7yN" firstAttribute="top" secondItem="eE5-wy-7FE" secondAttribute="bottom" constant="8" id="Hgc-LS-k0J"/>
                             <constraint firstItem="eE5-wy-7FE" firstAttribute="top" secondItem="Rty-Vc-WfO" secondAttribute="bottom" constant="8" id="K6H-PU-OBB"/>
                             <constraint firstItem="we4-8D-joO" firstAttribute="top" secondItem="2zg-8n-mCt" secondAttribute="bottom" constant="8" id="PBf-ic-IfU"/>
-                            <constraint firstItem="U95-SG-wlZ" firstAttribute="top" secondItem="FH3-Iv-7yN" secondAttribute="bottom" constant="8" id="Us1-vd-Gw7"/>
+                            <constraint firstItem="U95-SG-wlZ" firstAttribute="top" secondItem="c8z-e6-6vZ" secondAttribute="bottom" constant="8" id="Q6S-LU-bfC"/>
                             <constraint firstItem="Rty-Vc-WfO" firstAttribute="leading" secondItem="we4-8D-joO" secondAttribute="trailing" constant="8" id="Wgc-Qx-RBQ"/>
-                            <constraint firstItem="U95-SG-wlZ" firstAttribute="leading" secondItem="Nx2-mV-LaY" secondAttribute="leading" constant="8" id="b4l-pf-cKg"/>
+                            <constraint firstItem="c8z-e6-6vZ" firstAttribute="top" secondItem="we4-8D-joO" secondAttribute="bottom" constant="8" id="bZ8-JC-hpZ"/>
                             <constraint firstItem="we4-8D-joO" firstAttribute="leading" secondItem="Nx2-mV-LaY" secondAttribute="leading" constant="8" id="dw8-RI-KfX"/>
+                            <constraint firstItem="7DN-Yv-cau" firstAttribute="top" secondItem="U95-SG-wlZ" secondAttribute="bottom" constant="8" id="gfu-Ke-Io8"/>
                             <constraint firstItem="eE5-wy-7FE" firstAttribute="leading" secondItem="we4-8D-joO" secondAttribute="trailing" constant="8" id="hRs-SZ-mNI"/>
-                            <constraint firstItem="7DN-Yv-cau" firstAttribute="top" secondItem="U95-SG-wlZ" secondAttribute="bottom" constant="8" id="iS8-Ts-LrD"/>
                             <constraint firstAttribute="trailing" secondItem="eE5-wy-7FE" secondAttribute="trailing" constant="8" id="l6a-dH-jVs"/>
-                            <constraint firstAttribute="trailing" secondItem="U95-SG-wlZ" secondAttribute="trailing" constant="8" id="oI0-l2-8Op"/>
+                            <constraint firstAttribute="trailing" secondItem="U95-SG-wlZ" secondAttribute="trailing" constant="8" id="vt2-Oy-VhM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Compose" id="l31-S4-Nbz">
@@ -264,6 +273,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="charRemainingLabel" destination="FH3-Iv-7yN" id="E0K-qU-dpV"/>
+                        <outlet property="retweetingLabel" destination="c8z-e6-6vZ" id="9sc-Ug-hbJ"/>
                         <outlet property="screenNameLabel" destination="eE5-wy-7FE" id="Nm9-2p-KuK"/>
                         <outlet property="tweetButton" destination="dS9-er-OnE" id="Dni-qx-2R1"/>
                         <outlet property="tweetTextView" destination="U95-SG-wlZ" id="pE2-pc-5DV"/>

@@ -56,7 +56,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    //tableView.reloadData()
+    tableView.reloadData()
   }
   
   func fetchHomeTimeline() {

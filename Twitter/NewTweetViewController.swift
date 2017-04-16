@@ -13,6 +13,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
   
   var user: User?
   var responseId: String?
+  var retweetingTo: String?
   
   var charRemaining: Int? {
     didSet {
@@ -24,8 +25,8 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
   @IBOutlet weak var screenNameLabel: UILabel!
   @IBOutlet weak var userImage: UIImageView!
   @IBOutlet weak var tweetTextView: UITextView!
-  
   @IBOutlet weak var charRemainingLabel: UILabel!
+  @IBOutlet weak var retweetingLabel: UILabel!
   
   @IBOutlet weak var tweetButton: UIBarButtonItem! {
     didSet {
@@ -82,6 +83,10 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     // If response ID is set, then tweet is a reply
     if let _ = responseId {
       tweetButton.title = "Reply"
+      retweetingLabel.text = "Retweeting to @\(retweetingTo ?? "")"
+    } else {
+      tweetButton.title = "Tweet"
+      retweetingLabel.isHidden = true
     }
     
     tweetTextView.becomeFirstResponder()
