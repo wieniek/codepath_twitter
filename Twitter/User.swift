@@ -10,11 +10,16 @@ import UIKit
 
 class User {
   
-  var userDictionary: [String:Any]
-  var name: String?
-  var screenName: String?
-  var profileUrl: URL?
-  var tagline: String?
+  let userDictionary: [String:Any]
+  let name: String?
+  let screenName: String?
+  let profileUrl: URL?
+  let bannerUrl: URL?
+  let tagline: String?
+  let tweets: Int?
+  let favorites: Int?
+  let followers: Int?
+  let following: Int?
   
   static let userDidLogoutNotification = NSNotification.Name(rawValue: "UserDidLogout")
   
@@ -24,8 +29,19 @@ class User {
     screenName = dictionary[Const.screenName] as? String
     if let profileUrlString = dictionary[Const.imageUrl] as? String {
       profileUrl = URL(string: profileUrlString)
+    } else {
+      profileUrl = nil
+    }
+    if let bannerUrlString = dictionary[Const.bannerUrl] as? String {
+      bannerUrl = URL(string: bannerUrlString)
+    } else {
+      bannerUrl = nil
     }
     tagline = dictionary[Const.description] as? String
+    tweets = dictionary[Const.tweetCount] as? Int
+    favorites = dictionary[Const.favCount] as? Int
+    followers = dictionary[Const.followersCount] as? Int
+    following = dictionary[Const.followingCount] as? Int
   }
   
   static var _currentUser: User?
