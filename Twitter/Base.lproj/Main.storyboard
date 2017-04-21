@@ -231,7 +231,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="225" id="THy-sQ-6lJ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TweetCell" rowHeight="225" id="THy-sQ-6lJ" customClass="TweetCell" customModule="Twitter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="445" width="375" height="225"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="THy-sQ-6lJ" id="Sn1-oD-0UX">
@@ -283,6 +283,7 @@
                         <outlet property="profilePageControl" destination="eVF-z6-Qzz" id="qta-rl-aJ7"/>
                         <outlet property="profileScrollView" destination="qOq-Wl-jih" id="ND7-xh-7LR"/>
                         <outlet property="screenNameLabel" destination="UUq-Bk-Hgw" id="3Ig-ma-r2c"/>
+                        <outlet property="tableView" destination="NFz-Mc-Kca" id="VZQ-cy-Z2a"/>
                         <outlet property="tweetsLabel" destination="5Yf-8v-KL1" id="7wG-fj-XOF"/>
                     </connections>
                 </viewController>

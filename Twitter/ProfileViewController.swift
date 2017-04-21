@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIScrollViewDelegate {
+class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
+  @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var bannerImage: UIImageView!
   @IBOutlet weak var profileImage: UIImageView!
   @IBOutlet weak var profileNameLabel: UILabel!
@@ -24,6 +25,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    tableView.delegate = self
+    tableView.dataSource = self
     profileScrollView.delegate = self
     profileScrollView.contentSize = CGSize(width: self.view.bounds.width * 2, height: 100)
     profileScrollView.isPagingEnabled = true
@@ -69,7 +72,29 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
   }
   
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    let cell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
+    
+    cell.userNameLabel.text = "THIS IS A TEST"
+    cell.screenNameLabel.text = "SCREEN NAME"
+    
+    //let cell = tableView.dequeueReusableCell(withIdentifier: "TweetViewCell", for: indexPath) as! TweetViewCell
+    //cell.tweet = tweets?[indexPath.row]
+    
+    return cell
+  }
   
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+//    if let tweets = tweets {
+//      return tweets.count
+//    } else {
+//      return 0
+//    }
+    return 3
+    
+  }
   
   /*
    // MARK: - Navigation
