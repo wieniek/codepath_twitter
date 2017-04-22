@@ -134,6 +134,17 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
+  func userTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+    get(Const.userTimelineEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+      if let dictionaries = response as? [NSDictionary] {
+        let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+        success(tweets)
+      }
+    }, failure: { (task: URLSessionDataTask?, error: Error) in
+      failure(error)
+    })
+  }
+  
   func mentionsTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
     get(Const.mentionsEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       if let dictionaries = response as? [NSDictionary] {

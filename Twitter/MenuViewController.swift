@@ -55,9 +55,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
   }
   
-  func tweets(viewController controller: TweetsViewController, didSelectTweet tweet: Tweet?) {
+  func tweets(viewController controller: TweetsViewController, didSelectTweetAtRow row: Int?) {
     
-    print("switching to profile")
+    print("switching to profile. row = \(row ?? 0)")
     hamburgerViewController.contentViewController = profileNavigationController
   }
   

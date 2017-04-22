@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TweetsViewControllerDelegate: class {
-  func tweets(viewController controller: TweetsViewController, didSelectTweet tweet: Tweet?)
+  func tweets(viewController controller: TweetsViewController, didSelectTweetAtRow row: Int?)
 }
 
 
@@ -35,13 +35,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap(_:tweet:)))
     cell.userImage.isUserInteractionEnabled = true
     cell.userImage.addGestureRecognizer(tapRecognizer)
+    cell.userImage.tag = indexPath.row
     return cell
   }
   
   func onTap(_ sender: UITapGestureRecognizer, tweet: Tweet) {
     
     print("ON TAP")
-    delegate?.tweets(viewController: self, didSelectTweet: tweet)
+    let row = sender.view?.tag
+    delegate?.tweets(viewController: self, didSelectTweetAtRow: row)
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

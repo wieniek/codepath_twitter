@@ -37,6 +37,7 @@ struct Constants {
   static let timelineEndPoint = "1.1/statuses/home_timeline.json"
   static let mentionsEndPoint = "1.1/statuses/mentions_timeline.json"
   static let updateEndPoint = "/1.1/statuses/update.json?status="
+  static let userTimelineEndPoint = "/1.1/statuses/user_timeline.json"
   
   // Dictionary keys
   
