@@ -8,12 +8,20 @@
 
 import UIKit
 
+enum MenuState {
+  case open
+  case closed
+}
+
 class HamburgerViewController: UIViewController {
   
   @IBOutlet weak var menuView: UIView!
   @IBOutlet weak var contentView: UIView!
   
   @IBOutlet weak var leftMarginConstraint: NSLayoutConstraint!
+  
+  var menuState = MenuState.closed
+  
   var originalLeftMargin: CGFloat!
   
   var menuViewController: UIViewController! {
@@ -72,9 +80,11 @@ class HamburgerViewController: UIViewController {
       UIView.animate(withDuration: 0.3, animations: {
         // Snaps the menu back and forth
         if velocity.x > 0 {
-          self.leftMarginConstraint.constant = self.view.frame.size.width - 100
+          self.leftMarginConstraint.constant = self.view.frame.size.width - 250
+          self.menuState = .open
         } else {
           self.leftMarginConstraint.constant = 0
+          self.menuState = .closed
         }
         self.view.layoutIfNeeded()
       })
@@ -83,6 +93,19 @@ class HamburgerViewController: UIViewController {
     
   }
   
+  func toggleMenu() {
+    UIView.animate(withDuration: 0.3, animations: {
+      // Snaps the menu back and forth
+      if self.menuState == .closed {
+        self.leftMarginConstraint.constant = self.view.frame.size.width - 250
+        self.menuState = .open
+      } else {
+        self.leftMarginConstraint.constant = 0
+        self.menuState = .closed
+      }
+      self.view.layoutIfNeeded()
+    })
+  }
   
   
   /*

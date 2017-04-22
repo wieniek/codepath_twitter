@@ -12,6 +12,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
   @IBOutlet weak var tableView: UITableView!
   
+  @IBOutlet weak var profileImage: UIImageView!
+  @IBOutlet weak var profileNameLabel: UILabel!
+  @IBOutlet weak var screenNameLabel: UILabel!
+  
   private var profileNavigationController: UIViewController!
   private var tweetsNavigationController: UIViewController!
   private var mentionsNavigationController: UIViewController!
@@ -20,38 +24,42 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
   var hamburgerViewController: HamburgerViewController!
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-      
-      tableView.dataSource = self
-      tableView.delegate = self
-      
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
-      tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-      mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
-      
-      viewControllers.append(profileNavigationController)
-      viewControllers.append(tweetsNavigationController)
-      viewControllers.append(mentionsNavigationController)
-      
-      // On bootup load the tweets vc
-      hamburgerViewController.contentViewController = tweetsNavigationController
-
-      
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    tableView.dataSource = self
+    tableView.delegate = self
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
+    tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+    mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
+    
+    viewControllers.append(profileNavigationController)
+    viewControllers.append(tweetsNavigationController)
+    viewControllers.append(mentionsNavigationController)
+    
+    // Set profile fields
+    profileNameLabel.text = User.currentUser?.name ?? ""
+    screenNameLabel.text = User.currentUser?.screenName ?? ""
+    if let url = User.currentUser?.profileUrl {
+      profileImage.setImageWith(url)
     }
-
+    
+    // On bootup load the tweets vc
+    hamburgerViewController.contentViewController = tweetsNavigationController
+    
+  }
+  
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 3
+    return Const.menuTitles.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "MenuTableViewCell", for: indexPath) as! MenuTableViewCell
     
-    let titles = ["Green", "Blue", "Pink"]
+    let titles = Const.menuTitles
     cell.menuTitleLabel.text = titles[indexPath.row]
     
     return cell
@@ -61,25 +69,30 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // deselect the gray selection
     tableView.deselectRow(at: indexPath, animated: true)
     
-    // Switch between controllers based on menu selection
-    hamburgerViewController.contentViewController = viewControllers[indexPath.row]
+    if indexPath.row == Const.menuTitles.count - 1 {
+      // last menu item is Sign Out
+        TwitterClient.sharedInstance?.logout()
+    } else {
+      // Switch between controllers based on menu selection
+      hamburgerViewController.contentViewController = viewControllers[indexPath.row]
+    }
   }
   
   
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  
+  /*
+   // MARK: - Navigation
+   
+   // In a storyboard-based application, you will often want to do a little preparation before navigation
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   // Get the new view controller using segue.destinationViewController.
+   // Pass the selected object to the new view controller.
+   }
+   */
+  
 }

@@ -52,6 +52,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     fetchHomeTimeline()
   }
   
+  @IBAction func barItemTapped(_ sender: Any) {
+    
+    if let hamburgerViewController = self.view.window?.rootViewController as? HamburgerViewController {
+      hamburgerViewController.toggleMenu()
+    }
+  }
+  
   func fetchHomeTimeline() {
     
     TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in

@@ -33,6 +33,13 @@ class MentionsViewController:  UIViewController, UITableViewDelegate, UITableVie
     }
   }
   
+  @IBAction func barItemTapped(_ sender: UIBarButtonItem) {
+    
+    if let hamburgerViewController = self.view.window?.rootViewController as? HamburgerViewController {
+      hamburgerViewController.toggleMenu()
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     

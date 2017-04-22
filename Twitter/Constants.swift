@@ -12,6 +12,10 @@ let Const = Constants.self
 
 struct Constants {
   
+  // Hamburger menu titles
+  
+  static let menuTitles = ["Profile", "Timeline", "Mentions", "Sign Out"]
+  
   // Twitter Client
   static let baseUrl = "https://api.twitter.com"
   static let consumerKey = "zBQcNlKexqOeeKM1bCg6z8iwI"

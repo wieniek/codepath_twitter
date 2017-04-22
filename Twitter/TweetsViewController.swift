@@ -74,14 +74,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     })
   }
   
+  @IBAction func barItemTapped(_ sender: UIBarButtonItem) {
+    if let hamburgerViewController = self.view.window?.rootViewController as? HamburgerViewController {
+      hamburgerViewController.toggleMenu()
+    }
+  }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
-  }
-  
-  @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
-    
-    TwitterClient.sharedInstance?.logout()
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
