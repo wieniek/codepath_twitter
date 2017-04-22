@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetsViewControllerDelegate {
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -35,6 +35,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
     mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
     
+    let tweetsViewController = tweetsNavigationController.childViewControllers.first as? TweetsViewController
+    
+    tweetsViewController?.delegate = self
+    
     viewControllers.append(profileNavigationController)
     viewControllers.append(tweetsNavigationController)
     viewControllers.append(mentionsNavigationController)
@@ -51,6 +55,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
   }
   
+  func tweets(viewController controller: TweetsViewController, didSelectTweet tweet: Tweet?) {
+    
+    print("switching to profile")
+    hamburgerViewController.contentViewController = profileNavigationController
+  }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return Const.menuTitles.count

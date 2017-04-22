@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol TweetsViewControllerDelegate: class {
+  func tweets(viewController controller: TweetsViewController, didSelectTweet tweet: Tweet?)
+}
+
+
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TwitterClientDelegate {
   
   var tweets: [Tweet]?
   
   @IBOutlet weak var tableView: UITableView!
+  
+  weak var delegate: TweetsViewControllerDelegate?
   
   // Refresh control for table view
   let refreshControl = UIRefreshControl()
@@ -20,19 +27,21 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let cell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
-    cell.tweet = tweets?[indexPath.row]
+    
+    let tweet = tweets?[indexPath.row]
+    cell.tweet = tweet
     
     // Timeline cells need tap recognizer to switch to profile when tapped on picture
-    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
+    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap(_:tweet:)))
     cell.userImage.isUserInteractionEnabled = true
     cell.userImage.addGestureRecognizer(tapRecognizer)
     return cell
   }
   
-  func onTap(_ sender: UITapGestureRecognizer) {
+  func onTap(_ sender: UITapGestureRecognizer, tweet: Tweet) {
+    
     print("ON TAP")
-    //performSegue(withIdentifier: "ShowProfile", sender: self)
-    dismiss(animated: true, completion: nil)
+    delegate?.tweets(viewController: self, didSelectTweet: tweet)
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
