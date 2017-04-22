@@ -134,6 +134,17 @@ class TwitterClient: BDBOAuth1SessionManager {
     })
   }
   
+  func mentionsTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+    get(Const.mentionsEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+      if let dictionaries = response as? [NSDictionary] {
+        let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+        success(tweets)
+      }
+    }, failure: { (task: URLSessionDataTask?, error: Error) in
+      failure(error)
+    })
+  }
+  
   func updateStatus(withText text: String, inResponseToId responseId: String?, success: @escaping (Tweet) -> Void, failure: @escaping (Error) -> Void) {
     
     guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {

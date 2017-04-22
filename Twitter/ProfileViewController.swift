@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
+  var tweets: [Tweet]?
+  
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var bannerImage: UIImageView!
   @IBOutlet weak var profileImage: UIImageView!
@@ -27,6 +29,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     
     tableView.delegate = self
     tableView.dataSource = self
+    tableView.estimatedRowHeight = 150
+    tableView.rowHeight = UITableViewAutomaticDimension
     profileScrollView.delegate = self
     profileScrollView.contentSize = CGSize(width: self.view.bounds.width * 2, height: 100)
     profileScrollView.isPagingEnabled = true
@@ -44,6 +48,20 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     followersLabel.text = String(User.currentUser?.followers ?? 0)
     followingLabel.text = String(User.currentUser?.following ?? 0)
     profileDescription.text = User.currentUser?.tagline ?? ""
+    
+    fetchHomeTimeline()
+  }
+  
+  func fetchHomeTimeline() {
+    
+    TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+      self.tweets = tweets
+      self.tableView.reloadData()
+      //self.refreshControl.endRefreshing()
+      print("got the data")
+    }, failure: { (error: Error) in
+      print("error: \(error.localizedDescription)")
+    })
   }
   
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -75,25 +93,17 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let cell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
-    
-    cell.userNameLabel.text = "THIS IS A TEST"
-    cell.screenNameLabel.text = "SCREEN NAME"
-    
-    //let cell = tableView.dequeueReusableCell(withIdentifier: "TweetViewCell", for: indexPath) as! TweetViewCell
-    //cell.tweet = tweets?[indexPath.row]
-    
+    cell.tweet = tweets?[indexPath.row]
     return cell
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-//    if let tweets = tweets {
-//      return tweets.count
-//    } else {
-//      return 0
-//    }
-    return 3
-    
+    if let tweets = tweets {
+      return tweets.count
+    } else {
+      return 0
+    }
   }
   
   /*

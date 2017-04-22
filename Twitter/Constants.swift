@@ -31,6 +31,7 @@ struct Constants {
   static let favCreateEndPoint = "/1.1/favorites/create.json?id="
   static let favDestroyEndPoint = "/1.1/favorites/destroy.json?id="
   static let timelineEndPoint = "1.1/statuses/home_timeline.json"
+  static let mentionsEndPoint = "1.1/statuses/mentions_timeline.json"
   static let updateEndPoint = "/1.1/statuses/update.json?status="
   
   // Dictionary keys

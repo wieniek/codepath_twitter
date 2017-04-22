@@ -217,7 +217,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="5mZ-EO-yrz" userLabel="Footer View">
-                            <rect key="frame" x="0.0" y="670" width="375" height="83"/>
+                            <rect key="frame" x="0.0" y="417" width="375" height="83"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S5U-sB-zyQ">
@@ -230,47 +230,6 @@
                                 <constraint firstItem="S5U-sB-zyQ" firstAttribute="centerY" secondItem="5mZ-EO-yrz" secondAttribute="centerY" id="w7L-hX-sa6"/>
                             </constraints>
                         </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TweetCell" rowHeight="225" id="THy-sQ-6lJ" customClass="TweetCell" customModule="Twitter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="445" width="375" height="225"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="THy-sQ-6lJ" id="Sn1-oD-0UX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="224.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Em6-9N-hle">
-                                            <rect key="frame" x="8" y="8" width="48" height="48"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="48" id="C6F-Zi-8S9"/>
-                                                <constraint firstAttribute="width" constant="48" id="bhS-Bd-Tw5"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Tweet User Name Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhb-fZ-36F">
-                                            <rect key="frame" x="64" y="8" width="303" height="21"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screen Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAj-5u-7bF">
-                                            <rect key="frame" x="64" y="37" width="303" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="uhb-fZ-36F" secondAttribute="trailing" constant="8" id="8mZ-Dg-UQR"/>
-                                        <constraint firstItem="uhb-fZ-36F" firstAttribute="leading" secondItem="Em6-9N-hle" secondAttribute="trailing" constant="8" id="8vI-Zz-K7o"/>
-                                        <constraint firstItem="Em6-9N-hle" firstAttribute="leading" secondItem="Sn1-oD-0UX" secondAttribute="leading" constant="8" id="Agr-PZ-F7g"/>
-                                        <constraint firstItem="uhb-fZ-36F" firstAttribute="top" secondItem="Sn1-oD-0UX" secondAttribute="top" constant="8" id="DXH-To-5rt"/>
-                                        <constraint firstItem="oAj-5u-7bF" firstAttribute="leading" secondItem="Em6-9N-hle" secondAttribute="trailing" constant="8" id="emx-kx-B6Y"/>
-                                        <constraint firstItem="oAj-5u-7bF" firstAttribute="top" secondItem="uhb-fZ-36F" secondAttribute="bottom" constant="8" id="fgI-ey-OOp"/>
-                                        <constraint firstItem="Em6-9N-hle" firstAttribute="top" secondItem="Sn1-oD-0UX" secondAttribute="top" constant="8" id="l8d-E6-JH4"/>
-                                        <constraint firstAttribute="trailing" secondItem="oAj-5u-7bF" secondAttribute="trailing" constant="8" id="spu-Ig-9Zv"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" id="Iup-cp-k3r"/>
                     <connections>
@@ -435,7 +394,7 @@
             </objects>
             <point key="canvasLocation" x="2036" y="206"/>
         </scene>
-        <!--Mentions View Controller-->
+        <!--Mentions-->
         <scene sceneID="0Bs-kc-qPZ">
             <objects>
                 <viewController storyboardIdentifier="MentionsViewController" id="EcX-Oc-9eY" customClass="MentionsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
@@ -446,13 +405,28 @@
                     <view key="view" contentMode="scaleToFill" id="2mH-Mt-Z9i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-vL-a4o">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Tx0-3x-1Pg" firstAttribute="top" secondItem="eeP-vL-a4o" secondAttribute="bottom" id="9un-zS-hoA"/>
+                            <constraint firstAttribute="trailing" secondItem="eeP-vL-a4o" secondAttribute="trailing" id="WYB-lW-M0E"/>
+                            <constraint firstItem="eeP-vL-a4o" firstAttribute="leading" secondItem="2mH-Mt-Z9i" secondAttribute="leading" id="iwm-dE-nC3"/>
+                            <constraint firstItem="eeP-vL-a4o" firstAttribute="top" secondItem="2mH-Mt-Z9i" secondAttribute="top" id="wis-pt-9bv"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Fhz-NI-iaV"/>
+                    <navigationItem key="navigationItem" title="Mentions" id="Fhz-NI-iaV"/>
+                    <connections>
+                        <outlet property="tableView" destination="eeP-vL-a4o" id="b8s-Eu-HQ7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvA-M5-5KA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2774" y="206"/>
+            <point key="canvasLocation" x="2773.5999999999999" y="205.54722638680661"/>
         </scene>
         <!--Compose-->
         <scene sceneID="KrL-2c-Rbg">
