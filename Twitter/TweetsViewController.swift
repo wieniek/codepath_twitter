@@ -21,7 +21,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     let cell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
     cell.tweet = tweets?[indexPath.row]
+    
+    // Timeline cells need tap recognizer to switch to profile when tapped on picture
+    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
+    cell.userImage.isUserInteractionEnabled = true
+    cell.userImage.addGestureRecognizer(tapRecognizer)
     return cell
+  }
+  
+  func onTap(_ sender: UITapGestureRecognizer) {
+    print("ON TAP")
+    //performSegue(withIdentifier: "ShowProfile", sender: self)
+    dismiss(animated: true, completion: nil)
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
