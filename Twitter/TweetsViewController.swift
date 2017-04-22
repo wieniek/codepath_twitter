@@ -19,10 +19,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    let cell = tableView.dequeueReusableCell(withIdentifier: "TweetViewCell", for: indexPath) as! TweetViewCell
+    let cell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
     cell.tweet = tweets?[indexPath.row]
-    
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    performSegue(withIdentifier: "TweetDetailSegue", sender: tableView.cellForRow(at: indexPath))
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,7 +87,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     if segue.identifier == "TweetDetailSegue" {
-      let cell = sender as! TweetViewCell
+      let cell = sender as! TweetCell
       let detailViewController = segue.destination as! TweetDetailViewController
       detailViewController.tweet = cell.tweet
     }
