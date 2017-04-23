@@ -150,7 +150,7 @@ class TwitterClient: BDBOAuth1SessionManager {
   }
  
   func userTimeline(parameters: Dictionary<String, String>, success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
-    get(Const.userTimelineEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+    get(Const.userTimelineEndPoint, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
       if let dictionaries = response as? [NSDictionary] {
         let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
         success(tweets)

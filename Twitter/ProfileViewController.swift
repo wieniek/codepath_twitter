@@ -39,6 +39,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     
     if let screenName = parameters["screen_name"] {
       
+      // Modify bar button
       let barButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(barItemClose))
       self.navigationItem.setLeftBarButton(barButtonItem, animated: true)
       
