@@ -99,14 +99,16 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     print("profile loaded")
   }
   
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-   print("SCROLLED")
-    
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {    
     let y: CGFloat = -scrollView.contentOffset.y
     
     if y > 0 {
       bannerImage.frame = CGRect(origin: CGPoint(x: 0, y: scrollView.contentOffset.y), size: CGSize(width: cachedImageViewSize.size.width + y, height: cachedImageViewSize.size.height + y))
       bannerImage.center = CGPoint(x: view.center.x, y: bannerImage.center.y)
+      
+      print("y = \(y)   alpha = \(min(1.0, y/140))")
+      bannerImage.alpha = min(1.0, y/140 + 0.2)
+      
     }
   }
   
@@ -164,6 +166,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
         //self.description2LeftConstraint.constant = -1 * self.view.frame.size.width
         self.decriptionLeftConstraint.constant = -1 * self.view.frame.size.width
         self.descriptionRightConstraint.constant = 1 * self.view.frame.size.width
+        self.bannerImage.alpha = 1
         self.view.layoutIfNeeded()
       })
     } else {
@@ -172,6 +175,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
         //self.description2LeftConstraint.constant = 8
         self.decriptionLeftConstraint.constant = 8
         self.descriptionRightConstraint.constant = 8
+        self.bannerImage.alpha = 0.6
         self.view.layoutIfNeeded()
       })
     }
