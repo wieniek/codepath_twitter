@@ -56,5 +56,6 @@ struct Constants {
   static let tweetCount = "statuses_count"
   static let createdAt = "created_at"
   static let description = "description"
+  static let location = "location"
   static let currentUserData = "currentUserData"
 }

@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
   @IBOutlet weak var profileScrollView: UIScrollView!
   @IBOutlet weak var profilePageControl: UIPageControl!
   @IBOutlet weak var profileDescription: UILabel!
+  @IBOutlet weak var profileDescription2: UILabel!
   @IBOutlet weak var tweetsLabel: UILabel!
   @IBOutlet weak var followersLabel: UILabel!
   @IBOutlet weak var followingLabel: UILabel!
@@ -62,7 +63,9 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
         self.tweetsLabel.text = String(user?.tweets ?? 0)
         self.followersLabel.text = String(user?.followers ?? 0)
         self.followingLabel.text = String(user?.following ?? 0)
-        self.profileDescription.text = user?.tagline ?? ""
+        self.profileDescription2.text = "\(user?.tagline ?? "")"
+        self.profileDescription.text = "Location:\n\(user?.location ?? "")"
+        
       }
         , failure: {(error: Error) in
           print("error: \(error.localizedDescription)")
@@ -83,7 +86,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
       tweetsLabel.text = String(User.currentUser?.tweets ?? 0)
       followersLabel.text = String(User.currentUser?.followers ?? 0)
       followingLabel.text = String(User.currentUser?.following ?? 0)
-      profileDescription.text = User.currentUser?.tagline ?? ""
+      profileDescription2.text = "\(User.currentUser?.tagline ?? "")"
+      profileDescription.text = "Location:\n\(User.currentUser?.location ?? "")"
       
       fetchHomeTimeline()
     }

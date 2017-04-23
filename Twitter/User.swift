@@ -16,6 +16,7 @@ class User {
   let profileUrl: URL?
   let bannerUrl: URL?
   let tagline: String?
+  let location: String?
   let tweets: Int?
   let favorites: Int?
   let followers: Int?
@@ -38,6 +39,7 @@ class User {
       bannerUrl = nil
     }
     tagline = dictionary[Const.description] as? String
+    location = dictionary[Const.location] as? String
     tweets = dictionary[Const.tweetCount] as? Int
     favorites = dictionary[Const.favCount] as? Int
     followers = dictionary[Const.followersCount] as? Int
