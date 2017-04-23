@@ -54,8 +54,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         if let screenName = screenName {
           profileViewController.parameters = ["screen_name":screenName]
-        
-        self.navigationController!.pushViewController(profileViewController, animated: true)
+          
+          self.navigationController!.pushViewController(profileViewController, animated: true)
           
         }
       }
@@ -63,6 +63,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    // deselect the gray selection
+    tableView.deselectRow(at: indexPath, animated: true)
+    
     performSegue(withIdentifier: "TweetDetailSegue", sender: tableView.cellForRow(at: indexPath))
   }
   

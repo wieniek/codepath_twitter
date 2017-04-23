@@ -44,7 +44,7 @@
             </objects>
             <point key="canvasLocation" x="1049" y="-2113"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="a92-r6-gdd">
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" id="aYh-J8-n3H" customClass="ProfileViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
@@ -56,10 +56,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="417"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S5U-sB-zyQ">
-                                    <rect key="frame" x="177" y="11" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </activityIndicatorView>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3mM-Hc-oXU">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -142,22 +138,22 @@
                                         <action selector="changePage:" destination="aYh-J8-n3H" eventType="valueChanged" id="S1J-B7-VX9"/>
                                     </connections>
                                 </pageControl>
-                                <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="n8G-Nu-KaY">
+                                <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalCentering" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="n8G-Nu-KaY">
                                     <rect key="frame" x="8" y="356" width="359" height="26"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="T4u-Rs-bQc">
-                                            <rect key="frame" x="0.0" y="0.0" width="113" height="26"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="91" height="26"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yf-8v-KL1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="31.5" height="26"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="90000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yf-8v-KL1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="39" height="26"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEH-lZ-lph" userLabel="FOLLOWING">
-                                                    <rect key="frame" x="35.5" y="0.0" width="77.5" height="26"/>
+                                                    <rect key="frame" x="43" y="0.0" width="48" height="26"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <state key="normal" title="TWEETS        ">
+                                                    <state key="normal" title="TWEETS">
                                                         <color key="titleColor" red="0.39607843139999999" green="0.46666666670000001" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
@@ -167,18 +163,18 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="GU4-Jk-aJp">
-                                            <rect key="frame" x="123" y="0.0" width="113" height="26"/>
+                                            <rect key="frame" x="119.5" y="0.0" width="116" height="26"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="900" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSF-fw-deV">
-                                                    <rect key="frame" x="0.0" y="0.0" width="23.5" height="26"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="90000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="gSF-fw-deV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="39" height="26"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BwH-21-SpC" userLabel="FOLLOWERS">
-                                                    <rect key="frame" x="27.5" y="0.0" width="85.5" height="26"/>
+                                                    <rect key="frame" x="43" y="0.0" width="73" height="26"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <state key="normal" title="FOLLOWERS  ">
+                                                    <state key="normal" title="FOLLOWERS">
                                                         <color key="titleColor" red="0.39607843139999999" green="0.46666666670000001" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
@@ -188,7 +184,7 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="pXn-Wr-UgU">
-                                            <rect key="frame" x="246" y="0.0" width="113" height="26"/>
+                                            <rect key="frame" x="260.5" y="0.0" width="98.5" height="26"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="900" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOH-Kx-OJd">
                                                     <rect key="frame" x="0.0" y="0.0" width="23.5" height="26"/>
@@ -197,9 +193,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaB-oc-Bmz" userLabel="FOLLOWERS">
-                                                    <rect key="frame" x="27.5" y="0.0" width="85.5" height="26"/>
+                                                    <rect key="frame" x="27.5" y="0.0" width="71" height="26"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <state key="normal" title="FOLLOWING   ">
+                                                    <state key="normal" title="FOLLOWING">
                                                         <color key="titleColor" red="0.39607843139999999" green="0.46666666670000001" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
@@ -262,7 +258,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Iup-cp-k3r">
+                    <navigationItem key="navigationItem" title="Profile" id="Iup-cp-k3r">
                         <barButtonItem key="leftBarButtonItem" image="hamburger" id="C7L-Rg-aDj">
                             <connections>
                                 <action selector="barItemTapped:" destination="aYh-J8-n3H" id="e0y-4o-OhQ"/>
@@ -292,7 +288,7 @@
             </objects>
             <point key="canvasLocation" x="-22" y="922"/>
         </scene>
-        <!--Home-->
+        <!--Timeline-->
         <scene sceneID="jG1-9E-3NM">
             <objects>
                 <viewController storyboardIdentifier="TweetsViewController" id="VZS-zj-lBP" customClass="TweetsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
@@ -312,7 +308,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="Foe-5O-Xtg">
+                    <navigationItem key="navigationItem" title="Timeline" id="Foe-5O-Xtg">
                         <barButtonItem key="leftBarButtonItem" image="hamburger" id="d0f-ZV-HDA">
                             <connections>
                                 <action selector="barItemTapped:" destination="VZS-zj-lBP" id="dNt-7D-vEz"/>

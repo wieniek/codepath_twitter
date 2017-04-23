@@ -67,8 +67,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
         self.tweetsLabel.text = String(user?.tweets ?? 0)
         self.followersLabel.text = String(user?.followers ?? 0)
         self.followingLabel.text = String(user?.following ?? 0)
-        self.profileDescription2.text = "\(user?.tagline ?? "")"
-        self.profileDescription.text = "Location:\n\(user?.location ?? "")"
+        self.profileDescription.text = "\(user?.tagline ?? "")"
+        self.profileDescription2.text = "Location:\n\(user?.location ?? "")"
         
       }
         , failure: {(error: Error) in
@@ -90,8 +90,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
       tweetsLabel.text = String(User.currentUser?.tweets ?? 0)
       followersLabel.text = String(User.currentUser?.followers ?? 0)
       followingLabel.text = String(User.currentUser?.following ?? 0)
-      profileDescription2.text = "\(User.currentUser?.tagline ?? "")"
-      profileDescription.text = "Location:\n\(User.currentUser?.location ?? "")"
+      profileDescription.text = "\(User.currentUser?.tagline ?? "")"
+      profileDescription2.text = "Location:\n\(User.currentUser?.location ?? "")"
       
       fetchHomeTimeline()
     }
@@ -156,6 +156,11 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // deselect the gray selection
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
   @IBAction func changePage(_ sender: UIPageControl) {
