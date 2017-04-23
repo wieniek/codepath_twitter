@@ -11,6 +11,9 @@ import UIKit
 class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
   var tweets: [Tweet]?
+  var parameters = [String: String]()
+  
+  var myuser: User?
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var bannerImage: UIImageView!
@@ -36,20 +39,47 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     profileScrollView.isPagingEnabled = true
     profileScrollView.showsHorizontalScrollIndicator = false
     
-    profileNameLabel.text = User.currentUser?.name ?? ""
-    screenNameLabel.text = User.currentUser?.screenName ?? ""
-    if let url = User.currentUser?.profileUrl {
-      profileImage.setImageWith(url)
+    if let screenName = parameters["screen_name"] {
+      
+      TwitterClient.sharedInstance?.showUser(parameters: parameters, success: {(user: User?) in
+        print("success")
+        self.myuser = user
+      }
+        , failure: {(error: Error) in
+          print("error: \(error.localizedDescription)")
+      })
+      
+      screenNameLabel.text = screenName
+      profileNameLabel.text = myuser?.name ?? ""
+      
+      if let url = myuser?.profileUrl {
+        profileImage.setImageWith(url)
+      }
+      if let url = myuser?.bannerUrl {
+        bannerImage.setImageWith(url)
+      }
+      tweetsLabel.text = String(myuser?.tweets ?? 0)
+      followersLabel.text = String(myuser?.followers ?? 0)
+      followingLabel.text = String(myuser?.following ?? 0)
+      profileDescription.text = myuser?.tagline ?? ""
+      
+    } else {
+      
+      profileNameLabel.text = User.currentUser?.name ?? ""
+      screenNameLabel.text = User.currentUser?.screenName ?? ""
+      if let url = User.currentUser?.profileUrl {
+        profileImage.setImageWith(url)
+      }
+      if let url = User.currentUser?.bannerUrl {
+        bannerImage.setImageWith(url)
+      }
+      tweetsLabel.text = String(User.currentUser?.tweets ?? 0)
+      followersLabel.text = String(User.currentUser?.followers ?? 0)
+      followingLabel.text = String(User.currentUser?.following ?? 0)
+      profileDescription.text = User.currentUser?.tagline ?? ""
+      
+      fetchHomeTimeline()
     }
-    if let url = User.currentUser?.bannerUrl {
-      bannerImage.setImageWith(url)
-    }
-    tweetsLabel.text = String(User.currentUser?.tweets ?? 0)
-    followersLabel.text = String(User.currentUser?.followers ?? 0)
-    followingLabel.text = String(User.currentUser?.following ?? 0)
-    profileDescription.text = User.currentUser?.tagline ?? ""
-    
-    fetchHomeTimeline()
   }
   
   @IBAction func barItemTapped(_ sender: Any) {

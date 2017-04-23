@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TweetsViewControllerDelegate: class {
-  func tweets(viewController controller: TweetsViewController, didSelectTweetAtRow row: Int?)
+  func tweets(viewController controller: TweetsViewController, didSelectTweetWithName screenName: String?)
 }
 
 
@@ -43,7 +43,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     print("ON TAP")
     let row = sender.view?.tag
-    delegate?.tweets(viewController: self, didSelectTweetAtRow: row)
+    if let row = row {
+      if let tweet = tweets?[row] {
+          delegate?.tweets(viewController: self, didSelectTweetWithName: tweet.screenName)
+      }
+    }
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

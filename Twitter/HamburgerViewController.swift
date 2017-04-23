@@ -35,26 +35,26 @@ class HamburgerViewController: UIViewController {
     didSet(oldContentViewController) {
       view.layoutIfNeeded()
       
-      // Remove old vc when switching to a new vc from hamburger menu
+      // Remove old view controler
       if oldContentViewController != nil {
         oldContentViewController.willMove(toParentViewController: nil)
         oldContentViewController.view.removeFromSuperview()
         oldContentViewController.didMove(toParentViewController: nil)
       }
       
-      // Clean way to add new vc
+      // add new view controler
       contentViewController.willMove(toParentViewController: self)
       contentView.addSubview(contentViewController.view)
       contentViewController.didMove(toParentViewController: self)
       
-      // Close hamburger menu on selection
+      // Close menu
       UIView.animate(withDuration: 0.3, animations: { () -> Void in
         self.leftMarginConstraint.constant = 0
         self.view.layoutIfNeeded()
       })
     }
   }
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     

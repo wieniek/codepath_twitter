@@ -55,9 +55,14 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
   }
   
-  func tweets(viewController controller: TweetsViewController, didSelectTweetAtRow row: Int?) {
+  func tweets(viewController controller: TweetsViewController, didSelectTweetWithName screenName: String?) {
     
-    print("switching to profile. row = \(row ?? 0)")
+    print("switching to profile. name = \(screenName ?? "NONE")")
+    
+    let vc = profileNavigationController.childViewControllers.first as? ProfileViewController
+    if let screenName = screenName {
+      vc?.parameters = ["screen_name":screenName]
+    }
     hamburgerViewController.contentViewController = profileNavigationController
   }
   
@@ -80,7 +85,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     if indexPath.row == Const.menuTitles.count - 1 {
       // last menu item is Sign Out
-        TwitterClient.sharedInstance?.logout()
+      TwitterClient.sharedInstance?.logout()
     } else {
       // Switch between controllers based on menu selection
       hamburgerViewController.contentViewController = viewControllers[indexPath.row]
