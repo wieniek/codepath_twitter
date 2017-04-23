@@ -27,7 +27,9 @@ class HamburgerViewController: UIViewController {
   var menuViewController: UIViewController! {
     didSet {
       view.layoutIfNeeded()
+      menuViewController.willMove(toParentViewController: self)
       menuView.addSubview(menuViewController.view)
+      menuViewController.didMove(toParentViewController: self)
     }
   }
   

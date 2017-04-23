@@ -11,6 +11,8 @@ import BDBOAuth1Manager
 
 class LoginViewController: UIViewController {
   
+  var window: UIWindow?
+  
   @IBAction func onLoginButton(_ sender: UIButton) {
     
     TwitterClient.sharedInstance?.login(success: {
@@ -25,7 +27,6 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Do any additional setup after loading the view.
   }
   
   override func didReceiveMemoryWarning() {
@@ -33,12 +34,14 @@ class LoginViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-//   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//    if segue.identifier == "LoginSeque" {
-//      
-//      let navigationController = segue.destination as! UINavigationController
-//      let viewController = navigationController.topViewController as! TweetsViewController
-//    }
-//   }
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    if segue.identifier == "LoginSeque" {
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let hamburgerViewController = segue.destination as! HamburgerViewController
+      let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+      menuViewController.hamburgerViewController = hamburgerViewController
+      hamburgerViewController.menuViewController = menuViewController
+    }
+  }
 }

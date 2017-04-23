@@ -13,8 +13,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
   var tweets: [Tweet]?
   var parameters = [String: String]()
   
-  var myuser: User?
-  
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var bannerImage: UIImageView!
   @IBOutlet weak var profileImage: UIImageView!
@@ -43,26 +41,23 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
       
       TwitterClient.sharedInstance?.showUser(parameters: parameters, success: {(user: User?) in
         print("success")
-        self.myuser = user
+        self.screenNameLabel.text = screenName
+        self.profileNameLabel.text = user?.name ?? ""
+        
+        if let url = user?.profileUrl {
+          self.profileImage.setImageWith(url)
+        }
+        if let url = user?.bannerUrl {
+          self.bannerImage.setImageWith(url)
+        }
+        self.tweetsLabel.text = String(user?.tweets ?? 0)
+        self.followersLabel.text = String(user?.followers ?? 0)
+        self.followingLabel.text = String(user?.following ?? 0)
+        self.profileDescription.text = user?.tagline ?? ""
       }
         , failure: {(error: Error) in
           print("error: \(error.localizedDescription)")
       })
-      
-      screenNameLabel.text = screenName
-      profileNameLabel.text = myuser?.name ?? ""
-      
-      if let url = myuser?.profileUrl {
-        profileImage.setImageWith(url)
-      }
-      if let url = myuser?.bannerUrl {
-        bannerImage.setImageWith(url)
-      }
-      tweetsLabel.text = String(myuser?.tweets ?? 0)
-      followersLabel.text = String(myuser?.followers ?? 0)
-      followingLabel.text = String(myuser?.following ?? 0)
-      profileDescription.text = myuser?.tagline ?? ""
-      
     } else {
       
       profileNameLabel.text = User.currentUser?.name ?? ""
