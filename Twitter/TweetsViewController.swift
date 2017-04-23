@@ -45,7 +45,19 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let row = sender.view?.tag
     if let row = row {
       if let tweet = tweets?[row] {
-          delegate?.tweets(viewController: self, didSelectTweetWithName: tweet.screenName)
+        //delegate?.tweets(viewController: self, didSelectTweetWithName: tweet.screenName)
+        let screenName = tweet.screenName
+        print("switching to profile. name = \(screenName ?? "NONE")")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        
+        let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        if let screenName = screenName {
+          profileViewController.parameters = ["screen_name":screenName]
+        
+        self.navigationController!.pushViewController(profileViewController, animated: true)
+          
+        }
       }
     }
   }

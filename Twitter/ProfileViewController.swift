@@ -39,6 +39,9 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     
     if let screenName = parameters["screen_name"] {
       
+      let barButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(barItemClose))
+      self.navigationItem.setLeftBarButton(barButtonItem, animated: true)
+      
       TwitterClient.sharedInstance?.showUser(parameters: parameters, success: {(user: User?) in
         print("success")
         self.screenNameLabel.text = screenName
@@ -58,6 +61,9 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
         , failure: {(error: Error) in
           print("error: \(error.localizedDescription)")
       })
+      
+      fetchUserTimeline(parameters: parameters)
+      
     } else {
       
       profileNameLabel.text = User.currentUser?.name ?? ""
@@ -75,6 +81,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
       
       fetchHomeTimeline()
     }
+    
+    print("profile loaded")
   }
   
   @IBAction func barItemTapped(_ sender: Any) {
@@ -84,9 +92,26 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     }
   }
   
+  func barItemClose() {
+    print("dismiss")
+    self.navigationController?.popViewController(animated: true)
+  }
+  
   func fetchHomeTimeline() {
     
     TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+      self.tweets = tweets
+      self.tableView.reloadData()
+      //self.refreshControl.endRefreshing()
+      print("got the data")
+    }, failure: { (error: Error) in
+      print("error: \(error.localizedDescription)")
+    })
+  }
+  
+  func fetchUserTimeline(parameters: [String: String]) {
+    
+    TwitterClient.sharedInstance?.userTimeline(parameters: parameters, success: { (tweets: [Tweet]) in
       self.tweets = tweets
       self.tableView.reloadData()
       //self.refreshControl.endRefreshing()

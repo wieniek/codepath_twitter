@@ -53,6 +53,7 @@ class HamburgerViewController: UIViewController {
       UIView.animate(withDuration: 0.3, animations: { () -> Void in
         self.leftMarginConstraint.constant = 0
         self.view.layoutIfNeeded()
+        self.menuState = .closed
       })
     }
   }
@@ -78,9 +79,7 @@ class HamburgerViewController: UIViewController {
     } else if sender.state == UIGestureRecognizerState.changed {
       leftMarginConstraint.constant = originalLeftMargin + translation.x
     } else if sender.state == UIGestureRecognizerState.ended {
-      // Animates the snapping back and forth of the menu to be smoother
       UIView.animate(withDuration: 0.3, animations: {
-        // Snaps the menu back and forth
         if velocity.x > 0 {
           self.leftMarginConstraint.constant = self.view.frame.size.width - 250
           self.menuState = .open
@@ -90,14 +89,11 @@ class HamburgerViewController: UIViewController {
         }
         self.view.layoutIfNeeded()
       })
-      
     }
-    
   }
   
   func toggleMenu() {
     UIView.animate(withDuration: 0.3, animations: {
-      // Snaps the menu back and forth
       if self.menuState == .closed {
         self.leftMarginConstraint.constant = self.view.frame.size.width - 250
         self.menuState = .open

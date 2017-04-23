@@ -57,13 +57,25 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
   func tweets(viewController controller: TweetsViewController, didSelectTweetWithName screenName: String?) {
     
-    print("switching to profile. name = \(screenName ?? "NONE")")
+//    // removing old controller
+//    controller.willMove(toParentViewController: nil)
+//    controller.view.removeFromSuperview()
+//    controller.didMove(toParentViewController: nil)
+//    
+//    print("switching to profile. name = \(screenName ?? "NONE")")
+//    let vc = profileNavigationController.childViewControllers.first as? ProfileViewController
+//    if let screenName = screenName {
+//      vc?.parameters = ["screen_name":screenName]
+//    }
+//    hamburgerViewController.contentViewController = profileNavigationController
     
-    let vc = profileNavigationController.childViewControllers.first as? ProfileViewController
-    if let screenName = screenName {
-      vc?.parameters = ["screen_name":screenName]
-    }
-    hamburgerViewController.contentViewController = profileNavigationController
+//    print("switching to profile. name = \(screenName ?? "NONE")")
+//    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//    let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+//    if let screenName = screenName {
+//    profileViewController.parameters = ["screen_name":screenName]
+//    }
+    
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
