@@ -25,6 +25,11 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
   @IBOutlet weak var followersLabel: UILabel!
   @IBOutlet weak var followingLabel: UILabel!
   
+  @IBOutlet weak var decriptionLeftConstraint: NSLayoutConstraint!
+  @IBOutlet weak var descriptionRightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var description2LeftConstraint: NSLayoutConstraint!
+  @IBOutlet weak var description2RightConstraint: NSLayoutConstraint!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -134,18 +139,23 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
   
   @IBAction func changePage(_ sender: UIPageControl) {
     
-    
-    UIView.transition(with: profileDescription,
-                      duration: 0.5,
-                      options: [.transitionFlipFromRight],
-                      animations: {
-                        if self.profilePageControl.currentPage == 0 {
-                          self.profileDescription.text = User.currentUser?.tagline ?? ""
-                        } else {
-                          self.profileDescription.text = "This is another tagline hey.."
-                        }
-    }, completion: nil)
-    
+    if sender.currentPage == 1 {
+      UIView.animate(withDuration: 0.5, animations: {
+        
+        //self.description2LeftConstraint.constant = -1 * self.view.frame.size.width
+        self.decriptionLeftConstraint.constant = -1 * self.view.frame.size.width
+        self.descriptionRightConstraint.constant = 1 * self.view.frame.size.width
+        self.view.layoutIfNeeded()
+      })
+    } else {
+      UIView.animate(withDuration: 0.5, animations: {
+        
+        //self.description2LeftConstraint.constant = 8
+        self.decriptionLeftConstraint.constant = 8
+        self.descriptionRightConstraint.constant = 8
+        self.view.layoutIfNeeded()
+      })
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
