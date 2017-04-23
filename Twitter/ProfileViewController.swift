@@ -31,8 +31,12 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
   @IBOutlet weak var description2LeftConstraint: NSLayoutConstraint!
   @IBOutlet weak var description2RightConstraint: NSLayoutConstraint!
   
+  var cachedImageViewSize: CGRect!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    cachedImageViewSize = bannerImage.frame
     
     tableView.delegate = self
     tableView.dataSource = self
@@ -93,6 +97,17 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     }
     
     print("profile loaded")
+  }
+  
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+   print("SCROLLED")
+    
+    let y: CGFloat = -scrollView.contentOffset.y
+    
+    if y > 0 {
+      bannerImage.frame = CGRect(origin: CGPoint(x: 0, y: scrollView.contentOffset.y), size: CGSize(width: cachedImageViewSize.size.width + y, height: cachedImageViewSize.size.height + y))
+      bannerImage.center = CGPoint(x: view.center.x, y: bannerImage.center.y)
+    }
   }
   
   @IBAction func barItemTapped(_ sender: Any) {
