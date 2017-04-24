@@ -8,19 +8,12 @@
 
 import UIKit
 
-protocol TweetsViewControllerDelegate: class {
-  func tweets(viewController controller: TweetsViewController, didSelectTweetWithName screenName: String?)
-}
-
-
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TwitterClientDelegate {
   
   var tweets: [Tweet]?
   
   @IBOutlet weak var tableView: UITableView!
-  
-  weak var delegate: TweetsViewControllerDelegate?
-  
+    
   // Refresh control for table view
   let refreshControl = UIRefreshControl()
   

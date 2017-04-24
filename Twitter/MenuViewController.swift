@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetsViewControllerDelegate {
+class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -34,11 +34,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
     tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
     mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
-    
-    let tweetsViewController = tweetsNavigationController.childViewControllers.first as? TweetsViewController
-    
-    tweetsViewController?.delegate = self
-    
+        
     viewControllers.append(profileNavigationController)
     viewControllers.append(tweetsNavigationController)
     viewControllers.append(mentionsNavigationController)
@@ -52,10 +48,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // On bootup load the tweets vc
     hamburgerViewController.contentViewController = tweetsNavigationController
-    
-  }
-  
-  func tweets(viewController controller: TweetsViewController, didSelectTweetWithName screenName: String?) {
     
   }
   
@@ -84,22 +76,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
       hamburgerViewController.contentViewController = viewControllers[indexPath.row]
     }
   }
-  
-  
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-  
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
-  
 }

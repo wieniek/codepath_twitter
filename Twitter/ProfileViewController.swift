@@ -95,8 +95,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
       
       fetchHomeTimeline()
     }
-    
-    print("profile loaded")
   }
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {    
@@ -105,8 +103,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     if y > 0 {
       bannerImage.frame = CGRect(origin: CGPoint(x: 0, y: scrollView.contentOffset.y), size: CGSize(width: cachedImageViewSize.size.width + y, height: cachedImageViewSize.size.height + y))
       bannerImage.center = CGPoint(x: view.center.x, y: bannerImage.center.y)
-      
-      print("y = \(y)   alpha = \(min(1.0, y/140))")
       bannerImage.alpha = min(1.0, y/140 + 0.2)
       
     }
@@ -168,7 +164,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     if sender.currentPage == 1 {
       UIView.animate(withDuration: 0.5, animations: {
         
-        //self.description2LeftConstraint.constant = -1 * self.view.frame.size.width
         self.decriptionLeftConstraint.constant = -1 * self.view.frame.size.width
         self.descriptionRightConstraint.constant = 1 * self.view.frame.size.width
         self.bannerImage.alpha = 1
@@ -177,7 +172,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
     } else {
       UIView.animate(withDuration: 0.5, animations: {
         
-        //self.description2LeftConstraint.constant = 8
         self.decriptionLeftConstraint.constant = 8
         self.descriptionRightConstraint.constant = 8
         self.bannerImage.alpha = 0.6
@@ -201,15 +195,4 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UITableView
       return 0
     }
   }
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
-  
 }

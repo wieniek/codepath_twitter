@@ -1,6 +1,6 @@
 # Project 4 - *Twitter Redux*
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
